@@ -1,4 +1,3 @@
-
 package amigo.oculto;
 
 import java.util.Date;
