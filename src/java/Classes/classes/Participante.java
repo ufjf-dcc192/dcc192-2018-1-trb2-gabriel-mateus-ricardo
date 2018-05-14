@@ -1,7 +1,7 @@
 package Classes.classes;
 
 public class Participante {
-    private String codigo;
+    private Integer codigo;
     private String nome;
     private String email;
     private String senha;
@@ -9,11 +9,11 @@ public class Participante {
     public Participante() {
     }
     
-    public String getCodigo() {
+    public Integer getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(String codigo) {
+    public void setCodigo(Integer codigo) {
         this.codigo = codigo;
     }
 

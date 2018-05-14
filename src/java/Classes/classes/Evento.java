@@ -6,7 +6,7 @@ import java.util.List;
 
 
 public class Evento {
-    private String codigo;
+    private Integer codigo;
     private String titulo;
     private Double minimo;
     private Date data;
@@ -16,11 +16,11 @@ public class Evento {
     public Evento() {
     }
 
-    public String getCodigo() {
+    public Integer getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(String codigo) {
+    public void setCodigo(Integer codigo) {
         this.codigo = codigo;
     }
 
