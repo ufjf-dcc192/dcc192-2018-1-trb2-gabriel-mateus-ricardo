@@ -1,3 +1,7 @@
+dcc192-trabalho2-2018-1
+usuario
+senha
+
 create table evento(
     codigoEvento integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     titulo varchar(500) not null,
