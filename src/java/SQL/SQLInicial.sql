@@ -1,6 +1,6 @@
-dcc192-trabalho2-2018-1
+/*dcc192-trabalho2-2018-1
 usuario
-senha
+senha*/
 
 create table evento(
     codigoEvento integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
