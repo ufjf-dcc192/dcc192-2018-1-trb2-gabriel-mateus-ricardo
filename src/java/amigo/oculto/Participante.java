@@ -1,4 +1,4 @@
-package Classes.classes;
+package amigo.oculto;
 
 public class Participante {
     private Integer codigo;
