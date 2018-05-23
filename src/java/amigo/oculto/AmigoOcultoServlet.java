@@ -2,7 +2,11 @@ package amigo.oculto;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,17 +19,17 @@ public class AmigoOcultoServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       if ("/eventos.html".equals(request.getServletPath())) {
-            listarEventos(request, response);
-        } 
+       Map<String, String> rotas = new HashMap<>();
+       rotas.put("/eventos.html", "amigo.oculto.EventosCommand");
+       rotas.put("/novoevento.html", "amigo.oculto.NovoEventoCommand");
+       String clazzName = rotas.get(request.getServletPath());
+       try {
+            Comando comando = (Comando) Class.forName(clazzName).newInstance();
+            comando.exec(request, response);
+       } catch (ClassNotFoundException|IllegalAccessException|InstantiationException ex) {
+            response.sendError(500, "Erro: "+ex);
+            Logger.getLogger(AmigoOcultoServlet.class.getName()).log(Level.SEVERE, null, ex);
+       } 
     }
-
-    private void listarEventos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Evento> evento = ListaEventos.getInstance();
-        request.setAttribute("evento", evento);
-        RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/eventos.jsp");
-        despachante.forward(request, response);
-    }
-
     
 }
