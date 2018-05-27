@@ -9,7 +9,6 @@ public class BdConnection {
     {
         if(instancia == null)
         {
-            Class.forName("org.apache.derby.jdbc.ClienteDriver");
             String driverURL = "jdbc:derby://localhost:1527/dcc192-trabalho2-2018-1";
             instancia = DriverManager.getConnection(driverURL, "usuario", "senha");
             return instancia;

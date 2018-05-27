@@ -4,8 +4,6 @@
         <div class="container text-center">
             <form method="post">
                 <div class="form-group row">
-                    <label>Nome do usuário</label>
-                    <input type="text" class="form-control" name="nomeUsuario" placeholder="Seu nome" required>
                     <label>Email</label>
                     <input type="text" class="form-control" name="emailUsuario" placeholder="Seu email" required>
                     <label>Senha</label>

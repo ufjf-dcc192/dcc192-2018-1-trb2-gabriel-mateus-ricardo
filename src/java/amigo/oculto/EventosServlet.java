@@ -21,7 +21,7 @@ public class EventosServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
        Map<String, String> rotas = new HashMap<>();
        rotas.put("/eventos.html", "amigo.oculto.EventosCommand");
-       rotas.put("/novoevento.html", "amigo.oculto.NovoEventoCommand");
+       rotas.put("/novoevento.html", "amigo.oculto.CriarNovoEventoCommand");
        String clazzName = rotas.get(request.getServletPath());
        try {
             Comando comando = (Comando) Class.forName(clazzName).newInstance();
@@ -35,8 +35,7 @@ public class EventosServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, String> rotas = new HashMap<>();
-       rotas.put("/eventos.html", "amigo.oculto.EventosCommand");
-       rotas.put("/novoevento.html", "amigo.oculto.CriarNovoEventoCommand");
+       rotas.put("/novoevento.html", "amigo.oculto.NovoEventoCommand");
        String clazzName = rotas.get(request.getServletPath());
        try {
             Comando comando = (Comando) Class.forName(clazzName).newInstance();

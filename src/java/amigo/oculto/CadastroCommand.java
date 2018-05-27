@@ -19,8 +19,7 @@ public class CadastroCommand implements Comando{
             String email = request.getParameter("emailUsuario");
             String senha = request.getParameter("senhaUsuario");
             p.criar(nomeUsuario, email, senha);
-            Integer id = p.varrerParticipante();
-            
+            response.sendRedirect("index.html");         
         } catch (Exception e) {
         }
     }
