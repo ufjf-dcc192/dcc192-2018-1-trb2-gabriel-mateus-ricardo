@@ -11,8 +11,9 @@ public class ListaEventos {
     public static List<Evento> getInstance() {
         if (eventos == null) {
             eventos = new ArrayList<>();
-            eventos.add(new Evento());
-            eventos.add(new Evento());
+            Evento e = new Evento();
+            e.setTitulo("Teste");
+            eventos.add(e);
         }
         return eventos;
     }

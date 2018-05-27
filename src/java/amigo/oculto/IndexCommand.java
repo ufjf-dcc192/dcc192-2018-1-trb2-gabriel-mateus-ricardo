@@ -6,12 +6,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class NovoEventoCommand implements Comando{
+public class IndexCommand implements Comando{
 
     @Override
     public void exec(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/novoevento.jsp");
-        despachante.forward(request, response);
+        RequestDispatcher dispacher = request.getRequestDispatcher("/WEB-INF/index.jsp");
+        dispacher.forward(request, response);
     }
     
 }

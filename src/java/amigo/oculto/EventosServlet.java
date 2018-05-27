@@ -14,12 +14,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "AmigoOcultoServlet", urlPatterns = {"/eventos.html"})
+@WebServlet(name = "AmigoOcultoServlet", urlPatterns = {"/index.html", "/eventos.html", "/novoevento.html"})
 public class EventosServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
        Map<String, String> rotas = new HashMap<>();
+       rotas.put("/index.html", "amigo.oculto.IndexCommand");
        rotas.put("/eventos.html", "amigo.oculto.EventosCommand");
        rotas.put("/novoevento.html", "amigo.oculto.NovoEventoCommand");
        String clazzName = rotas.get(request.getServletPath());
