@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "AmigoOcultoServlet", urlPatterns = {"/AmigoOcultoServlet.html", "/eventos.html"})
-public class AmigoOcultoServlet extends HttpServlet {
+@WebServlet(name = "AmigoOcultoServlet", urlPatterns = {"/eventos.html"})
+public class EventosServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -28,7 +28,7 @@ public class AmigoOcultoServlet extends HttpServlet {
             comando.exec(request, response);
        } catch (ClassNotFoundException|IllegalAccessException|InstantiationException ex) {
             response.sendError(500, "Erro: "+ex);
-            Logger.getLogger(AmigoOcultoServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EventosServlet.class.getName()).log(Level.SEVERE, null, ex);
        } 
     }
     
