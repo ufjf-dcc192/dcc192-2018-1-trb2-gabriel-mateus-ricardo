@@ -32,5 +32,22 @@ public class EventosServlet extends HttpServlet {
             Logger.getLogger(EventosServlet.class.getName()).log(Level.SEVERE, null, ex);
        } 
     }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Map<String, String> rotas = new HashMap<>();
+       rotas.put("/eventos.html", "amigo.oculto.EventosCommand");
+       rotas.put("/novoevento.html", "amigo.oculto.CriarNovoEventoCommand");
+       String clazzName = rotas.get(request.getServletPath());
+       try {
+            Comando comando = (Comando) Class.forName(clazzName).newInstance();
+            comando.exec(request, response);
+       } catch (ClassNotFoundException|IllegalAccessException|InstantiationException ex) {
+            response.sendError(500, "Erro: "+ex);
+            Logger.getLogger(EventosServlet.class.getName()).log(Level.SEVERE, null, ex);
+       } 
+    }
+    
+    
     
 }
