@@ -15,9 +15,6 @@ public class CriarNovoEventoCommand implements Comando{
         try {
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
             SimpleDateFormat formatoData = new SimpleDateFormat("yyyy-mm-dd");
-            String nomeUsuario = request.getParameter("nomeUsuario");
-            String email = request.getParameter("emailUsuario");
-            String senha = request.getParameter("senhaUsuario");
             String titulo = request.getParameter("titulo");
             Double valorMinimo = Double.parseDouble(request.getParameter("valorMinimo"));
             Date dataSorteio = formato.parse(request.getParameter("dataDoSorteio"));

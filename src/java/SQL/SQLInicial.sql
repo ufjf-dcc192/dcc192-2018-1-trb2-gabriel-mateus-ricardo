@@ -15,7 +15,7 @@ create table participante(
     codigoParticipante integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     nome varchar(500) not null,
     email varchar(500) not null,
-    senha varchar(500) not null,
+    senha varchar(500) not null
 )
 
 create table evento_participante(

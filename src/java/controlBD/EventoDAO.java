@@ -1,5 +1,6 @@
-package amigo.oculto;
+package controlBD;
 
+import amigo.oculto.Evento;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;

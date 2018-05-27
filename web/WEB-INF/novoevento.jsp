@@ -4,12 +4,6 @@
         <div class="container text-center">
             <form>
                 <div class="form-group row">
-                    <label>Nome do usuário</label>
-                    <input type="text" class="form-control" name="nomeUsuario" placeholder="Seu nome" required>
-                    <label>Email</label>
-                    <input type="text" class="form-control" name="emailUsuario" placeholder="Seu email" required>
-                    <label>Senha</label>
-                    <input type="password" class="form-control" name="senhaUsuario" size="20" placeholder="Sua senha" required>
                     <label>Título</label>
                     <input type="text" class="form-control" name="titulo" placeholder="Nome do seu evento" required>
                     <label>Valor mínimo</label>
