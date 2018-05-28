@@ -17,6 +17,7 @@ public class EventoDAOJDBC implements EventoDAO {
 
     private Connection conexao;
     private PreparedStatement operacaoInsereEvento;
+    private PreparedStatement operacaoVarrerEvento;
 
     public EventoDAOJDBC() {
         try {
@@ -24,6 +25,7 @@ public class EventoDAOJDBC implements EventoDAO {
                 conexao = BdConnection.getConnection();
                 operacaoInsereEvento = conexao.prepareStatement("insert into evento (titulo, minimo, dataInicial, dataSorteio, senhaEntrada) values"
                         + "(?,?,?,?,?)");
+                operacaoVarrerEvento = conexao.prepareStatement("select codigoEvento from evento");
             } catch (Exception ex) {
                 Logger.getLogger(ParticipanteDAOJDBC.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -45,6 +47,16 @@ public class EventoDAOJDBC implements EventoDAO {
         operacaoInsereEvento.setDate(4, dataSqlSorteio);
         operacaoInsereEvento.setString(5, senha);
         operacaoInsereEvento.executeUpdate();
+    }
+    
+    @Override
+    public Integer varrerEvento() throws Exception {
+        Integer i = 0;
+        ResultSet resultado = operacaoVarrerEvento.executeQuery();
+        while (resultado.next()) {
+            i = resultado.getInt(1);
+        }
+        return i;
     }
 
     public List<Evento> listAll() {
