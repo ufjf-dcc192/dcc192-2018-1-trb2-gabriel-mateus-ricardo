@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ParticipanteDAOJDBC implements ParticipanteDAO{
+public class ParticipanteDAOJDBC implements ParticipanteDAO {
 
     private Connection conexao;
     private PreparedStatement operacaoInsereParticipante;
@@ -18,15 +18,15 @@ public class ParticipanteDAOJDBC implements ParticipanteDAO{
     private PreparedStatement operacaoAlterar2;
     private PreparedStatement operacaoExcluir;
     private PreparedStatement operacaoVarrerParticipante;
-    
+
     public ParticipanteDAOJDBC() {
-                try {
+        try {
             try {
                 conexao = BdConnection.getConnection();
                 operacaoInsereParticipante = conexao.prepareStatement("insert into participante (nome, email, senha) values"
                         + "(?,?,?)");
                 operacaoAcharParticipante = conexao.prepareStatement("select codigoParticipante from participante where email = ? and senha = ?");
-                  //operacaoListar = conexao.prepareStatement("select pesid, pesnome, pesmail from pessoa");
+                //operacaoListar = conexao.prepareStatement("select pesid, pesnome, pesmail from pessoa");
 //                operacaoAlterar = conexao.prepareStatement("update pessoa set PESNOME=? where PESID = ?");
 //                operacaoAlterar2 = conexao.prepareStatement("update pessoa set PESMAIL=? where PESID = ?");
 //                operacaoExcluir = conexao.prepareStatement("delete from pessoa where PESID = ?");
@@ -49,7 +49,7 @@ public class ParticipanteDAOJDBC implements ParticipanteDAO{
     }
 
     @Override
-    public Integer listarParticipante (String email, String senha) throws Exception{
+    public Integer listarParticipante(String email, String senha) throws Exception {
         operacaoAcharParticipante.clearParameters();
         operacaoAcharParticipante.setString(1, email);
         operacaoAcharParticipante.setString(2, senha);
@@ -58,32 +58,31 @@ public class ParticipanteDAOJDBC implements ParticipanteDAO{
         Integer id = resultado.getInt(1);
         return id;
     }
-    
+
     @Override
     public List<Participante> listarTodos() throws Exception {
         return null;
-    
+
     }
 
     @Override
     public void alterar(Participante participante) throws Exception {
-    
+
     }
 
     @Override
     public void excluir(Participante participante) throws Exception {
-    
+
     }
 
     @Override
     public Integer varrerParticipante() throws Exception {
         Integer i = 0;
         ResultSet resultado = operacaoVarrerParticipante.executeQuery();
-        while (resultado.next())
-        {
+        while (resultado.next()) {
             i = resultado.getInt(1);
         }
-        return i;  
+        return i;
     }
-    
+
 }

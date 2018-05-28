@@ -3,34 +3,48 @@ package controlBD;
 import amigo.oculto.Evento;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class EventoDAOJDBC implements EventoDAO{
+public class EventoDAOJDBC implements EventoDAO {
 
-    private static Connection conexao;
-    private static EventoDAOJDBC instancia;
-
-    public static EventoDAOJDBC getInstance() {
-        if (instancia == null) {
-            instancia = new EventoDAOJDBC();
-        }
-        return instancia;
-    }
+    private Connection conexao;
+    private PreparedStatement operacaoInsereEvento;
 
     public EventoDAOJDBC() {
         try {
-            if (conexao == null) {
-                conexao = DriverManager.getConnection("", "usuario", "senha"); // Colocar o banco aqui 
+            try {
+                conexao = BdConnection.getConnection();
+                operacaoInsereEvento = conexao.prepareStatement("insert into evento (titulo, minimo, dataInicial, dataSorteio, senhaEntrada) values"
+                        + "(?,?,?,?,?)");
+            } catch (Exception ex) {
+                Logger.getLogger(ParticipanteDAOJDBC.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(EventoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(ParticipanteDAOJDBC.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @Override
+    public void criar(String titulo, Double minimo, Date evento, Date sorteio, String senha) throws Exception {
+        java.util.Date dataEvento = evento;
+        java.util.Date dataSorteio = sorteio;
+        java.sql.Date dataSqlEvento = new java.sql.Date(dataEvento.getTime());
+        java.sql.Date dataSqlSorteio = new java.sql.Date(dataSorteio.getTime());
+        operacaoInsereEvento.clearParameters();
+        operacaoInsereEvento.setString(1, titulo);
+        operacaoInsereEvento.setDouble(2, minimo);
+        operacaoInsereEvento.setDate(3, dataSqlEvento);
+        operacaoInsereEvento.setDate(4, dataSqlSorteio);
+        operacaoInsereEvento.setString(5, senha);
+        operacaoInsereEvento.executeUpdate();
     }
 
     public List<Evento> listAll() {
@@ -54,16 +68,6 @@ public class EventoDAOJDBC implements EventoDAO{
             Logger.getLogger(EventoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return eventos;
-    }
-
-    void create(String titulo) {
-        try {
-            Statement comando = conexao.createStatement();
-            comando.executeUpdate(String.format("", titulo)); // Colocar comando de inclusão aqui
-            comando.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(EventoDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     void delete(Integer codigo) {

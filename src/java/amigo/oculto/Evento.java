@@ -10,9 +10,17 @@ public class Evento {
     private Double minimo;
     private Date data;
     private Date sorteio;
+    private String senha;
     private List<Participante> participantes;
 
     public Evento() {
+    }
+
+    public Evento(String titulo, Double minimo, String senha) {
+        this.titulo = titulo;
+        this.minimo = minimo;
+        this.data = new Date();
+        this.sorteio = new Date();
     }
 
     public Integer getCodigo() {
@@ -62,5 +70,14 @@ public class Evento {
     public void setParticipantes(List<Participante> participantes) {
         this.participantes = participantes;
     }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+    
     
 }
