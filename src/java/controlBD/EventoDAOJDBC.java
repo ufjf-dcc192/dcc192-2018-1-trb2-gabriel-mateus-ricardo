@@ -17,6 +17,7 @@ public class EventoDAOJDBC implements EventoDAO {
 
     private Connection conexao;
     private PreparedStatement operacaoInsereEvento;
+    private PreparedStatement operacaoAcharEvento;
     private PreparedStatement operacaoVarrerEvento;
     private PreparedStatement operacaoListarEvento; 
 
@@ -26,6 +27,7 @@ public class EventoDAOJDBC implements EventoDAO {
                 conexao = BdConnection.getConnection();
                 operacaoInsereEvento = conexao.prepareStatement("insert into evento (titulo, minimo, dataInicial, dataSorteio, senhaEntrada, fk_codigoCriador) values"
                         + "(?,?,?,?,?,?)");
+                operacaoAcharEvento = conexao.prepareStatement("select codigoEvento from evento where codigoEvento = ?");
                 operacaoVarrerEvento = conexao.prepareStatement("select codigoEvento from evento");
                 operacaoListarEvento = conexao.prepareStatement("select codigoEvento, titulo, minimo, dataInicial, dataSorteio, senhaEntrada from evento");
              
@@ -61,7 +63,7 @@ public class EventoDAOJDBC implements EventoDAO {
         Integer i = 0;
         ResultSet resultado = operacaoVarrerEvento.executeQuery();
         while (resultado.next()) {
-            i = resultado.getInt(1);
+            i = resultado.getInt("codigoEvento");
         }
         return i;
     }
@@ -96,5 +98,15 @@ public class EventoDAOJDBC implements EventoDAO {
         } catch (SQLException ex) {
             Logger.getLogger(EventoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @Override
+    public Integer listarEvento(Integer id) throws Exception {
+        operacaoAcharEvento.clearParameters();
+        operacaoAcharEvento.setInt(1, id);
+        ResultSet resultado = operacaoAcharEvento.executeQuery();
+        resultado.next();
+        Integer idEvento = resultado.getInt("codigoEvento");
+        return idEvento;
     }
 }

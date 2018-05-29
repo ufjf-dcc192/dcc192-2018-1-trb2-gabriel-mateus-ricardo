@@ -2,6 +2,9 @@ package amigo.oculto;
 
 import controlBD.EventoDAO;
 import controlBD.EventoDAOJDBC;
+import controlBD.ParticipanteDAO;
+import controlBD.Participante_EventoDAO;
+import controlBD.Participante_EventoDAOJDBC;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -24,9 +27,13 @@ public class NovoEventoCommand implements Comando{
             Date dataSorteio = (Date)formatter.parse(request.getParameter("dataDoSorteio"));
             Date dataEvento = (Date)formatter.parse(request.getParameter("dataDoEvento"));
             String senha = request.getParameter("senhaEvento");
-            Integer id = Integer.parseInt(request.getParameter("id"));
-            d.criar(titulo, valorMinimo, dataEvento, dataSorteio, senha, id);
-            response.sendRedirect("eventos.html?id="+id);
+            Integer idParticipante = Integer.parseInt(request.getParameter("id"));
+            d.criar(titulo, valorMinimo, dataEvento, dataSorteio, senha, idParticipante);
+            Integer idEvento = d.varrerEvento();
+            
+            Participante_EventoDAO p = new Participante_EventoDAOJDBC();
+            p.criar(idParticipante, idEvento);
+            response.sendRedirect("eventos.html?id="+idParticipante);
         } catch (Exception e) {
         
         }
