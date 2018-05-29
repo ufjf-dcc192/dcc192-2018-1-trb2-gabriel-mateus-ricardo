@@ -5,4 +5,5 @@ import java.util.Date;
 
 public interface Participante_EventoDAO {
      public void criar (Integer idParticipante, Integer idEvento) throws Exception;
+     public boolean busca (Integer idParticipante, Integer idEvento) throws Exception;
 }

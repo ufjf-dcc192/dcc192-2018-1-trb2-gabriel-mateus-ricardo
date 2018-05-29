@@ -27,7 +27,7 @@ public class EventoDAOJDBC implements EventoDAO {
                 conexao = BdConnection.getConnection();
                 operacaoInsereEvento = conexao.prepareStatement("insert into evento (titulo, minimo, dataInicial, dataSorteio, senhaEntrada, fk_codigoCriador) values"
                         + "(?,?,?,?,?,?)");
-                operacaoAcharEvento = conexao.prepareStatement("select codigoEvento from evento where codigoEvento = ?");
+                operacaoAcharEvento = conexao.prepareStatement("select codigoEvento, titulo, minimo, dataInicial, dataSorteio, senhaEntrada from evento where codigoEvento = ?");
                 operacaoVarrerEvento = conexao.prepareStatement("select codigoEvento from evento");
                 operacaoListarEvento = conexao.prepareStatement("select codigoEvento, titulo, minimo, dataInicial, dataSorteio, senhaEntrada from evento");
              
@@ -101,12 +101,18 @@ public class EventoDAOJDBC implements EventoDAO {
     }
 
     @Override
-    public Integer listarEvento(Integer id) throws Exception {
+    public Evento listarEvento(Integer id) throws Exception {
         operacaoAcharEvento.clearParameters();
         operacaoAcharEvento.setInt(1, id);
         ResultSet resultado = operacaoAcharEvento.executeQuery();
         resultado.next();
-        Integer idEvento = resultado.getInt("codigoEvento");
-        return idEvento;
+        Evento evento = new Evento();
+        evento.setCodigo(resultado.getInt("codigoEvento"));
+        evento.setTitulo(resultado.getString("titulo"));
+        evento.setMinimo(resultado.getDouble("minimo"));
+        evento.setData(resultado.getTimestamp("dataInicial"));
+        evento.setSorteio(resultado.getTimestamp("dataSorteio"));
+        evento.setSenha(resultado.getString("senhaEntrada"));
+        return evento;
     }
 }
