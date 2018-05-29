@@ -20,7 +20,7 @@ public class InscricaoCommand implements Comando {
             Integer id = Integer.parseInt(request.getParameter("id"));
             Integer id2 = Integer.parseInt(request.getParameter("id2"));
             Participante_EventoDAO p = new Participante_EventoDAOJDBC();
-            if (p.busca(id, id2))
+            if (!p.busca(id, id2))
             {
                 EventoDAO e = new EventoDAOJDBC();
                 String senha = request.getParameter("senhaEvento");
