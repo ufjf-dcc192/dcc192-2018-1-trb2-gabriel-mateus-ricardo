@@ -1,5 +1,7 @@
 package amigo.oculto;
 
+import controlBD.EventoDAO;
+import controlBD.EventoDAOJDBC;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -15,16 +17,16 @@ public class NovoEventoCommand implements Comando{
     public void exec(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         try {
-            
-            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm"); 
-            
+            EventoDAO d = new EventoDAOJDBC();
+            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm");        
             String titulo = request.getParameter("titulo");
             Double valorMinimo = Double.parseDouble(request.getParameter("valorMinimo"));
             Date dataSorteio = (Date)formatter.parse(request.getParameter("dataDoSorteio"));
             Date dataEvento = (Date)formatter.parse(request.getParameter("dataDoEvento"));
             String senha = request.getParameter("senhaEvento");
             Integer id = Integer.parseInt(request.getParameter("id"));
-            System.out.println(id);
+            d.criar(titulo, valorMinimo, dataEvento, dataSorteio, senha);
+            response.sendRedirect("eventos.html?id="+id);
         } catch (Exception e) {
         }
         
