@@ -24,8 +24,8 @@ public class EventoDAOJDBC implements EventoDAO {
         try {
             try {
                 conexao = BdConnection.getConnection();
-                operacaoInsereEvento = conexao.prepareStatement("insert into evento (titulo, minimo, dataInicial, dataSorteio, senhaEntrada) values"
-                        + "(?,?,?,?,?)");
+                operacaoInsereEvento = conexao.prepareStatement("insert into evento (titulo, minimo, dataInicial, dataSorteio, senhaEntrada, fk_codigoCriador) values"
+                        + "(?,?,?,?,?,?)");
                 operacaoVarrerEvento = conexao.prepareStatement("select codigoEvento from evento");
                 operacaoListarEvento = conexao.prepareStatement("select codigoEvento, titulo, minimo, dataInicial, dataSorteio, senhaEntrada from evento");
              
@@ -38,7 +38,7 @@ public class EventoDAOJDBC implements EventoDAO {
     }
 
     @Override
-    public void criar(String titulo, Double minimo, Date evento, Date sorteio, String senha) throws Exception {
+    public void criar(String titulo, Double minimo, Date evento, Date sorteio, String senha, Integer id) throws Exception {
         java.util.Date dataEvento = evento;
         java.util.Date dataSorteio = sorteio;
         Calendar cal = Calendar.getInstance();
@@ -52,6 +52,7 @@ public class EventoDAOJDBC implements EventoDAO {
         operacaoInsereEvento.setTimestamp(3, dataSqlEvento);
         operacaoInsereEvento.setTimestamp(4, dataSqlSorteio);
         operacaoInsereEvento.setString(5, senha);
+        operacaoInsereEvento.setInt(6, id);
         operacaoInsereEvento.executeUpdate();
     }
     

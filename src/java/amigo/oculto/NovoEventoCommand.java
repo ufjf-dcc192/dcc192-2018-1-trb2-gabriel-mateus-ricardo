@@ -25,7 +25,7 @@ public class NovoEventoCommand implements Comando{
             Date dataEvento = (Date)formatter.parse(request.getParameter("dataDoEvento"));
             String senha = request.getParameter("senhaEvento");
             Integer id = Integer.parseInt(request.getParameter("id"));
-            d.criar(titulo, valorMinimo, dataEvento, dataSorteio, senha);
+            d.criar(titulo, valorMinimo, dataEvento, dataSorteio, senha, id);
             response.sendRedirect("eventos.html?id="+id);
         } catch (Exception e) {
         

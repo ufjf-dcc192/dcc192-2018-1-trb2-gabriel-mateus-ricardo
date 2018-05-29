@@ -23,7 +23,7 @@
                     <tr>
                     <th>${evento.codigo}</th>
                     <th>${evento.titulo}</th>
-                    <th>${evento.minimo}</th>
+                    <th>R$${evento.minimo}</th>
                     <th>${evento.data}</th>
                     <th>${evento.sorteio}</th>
                     <th><a href="">Participantes</a></th>
