@@ -2,20 +2,26 @@
 usuario
 senha*/
 
-create table evento(
-    codigoEvento integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    titulo varchar(500) not null,
-    minimo decimal(10, 2) not null,
-    dataInicial timestamp not null,
-    dataSorteio timestamp not null,
-    senhaEntrada varchar(500) not null
-)
+drop table evento_participante
+drop table evento
+drop table participante
 
 create table participante(
     codigoParticipante integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     nome varchar(500) not null,
     email varchar(500) not null,
     senha varchar(500) not null
+)
+
+create table evento(
+    codigoEvento integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    titulo varchar(500) not null,
+    minimo decimal(10, 2) not null,
+    dataInicial timestamp not null,
+    dataSorteio timestamp not null,
+    senhaEntrada varchar(500) not null,
+    fk_codigoCriador integer,
+    foreign key (fk_codigoCriador) references participante (codigoParticipante)
 )
 
 create table evento_participante(
