@@ -19,8 +19,7 @@ public class InscreverCommand implements Comando {
         Integer id2 = Integer.parseInt(request.getParameter("id2"));
         Participante_EventoDAO p = new Participante_EventoDAOJDBC();
         try {
-            if (!p.busca(id, id2))
-            {
+            if (!p.busca(id, id2)) {
                 request.setAttribute("id", id);
                 request.setAttribute("id2", id2);
                 RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/inscricao.jsp");
@@ -28,6 +27,10 @@ public class InscreverCommand implements Comando {
             }
         } catch (Exception ex) {
             //fazer uma tela mostrando que usuário está inscrito e seu amigo oculto
+            request.setAttribute("id", id);
+            request.setAttribute("id2", id2);
+            RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/mensagem.jsp");
+            despachante.forward(request, response);
         }
     }
 
