@@ -44,14 +44,14 @@ public class Participante_EventoDAOJDBC implements Participante_EventoDAO{
         ResultSet resultado = operacaoBuscar.executeQuery();
         while(resultado.next())
         {
-            Integer id = resultado.getInt("fkid_codigoParticipante");
+            Integer id = resultado.getInt("fkid_codigoEvento");
             idEventos.add(id);
         }    
         EventoDAO e = new EventoDAOJDBC();
         List<Evento> eventos = e.listarTodos();
         for (Evento evento : eventos) {
             for (Integer idev : idEventos) {
-                if (evento.getCodigo() == idev)
+                if (idev == idEvento)
                 {
                     return true;
                 }
