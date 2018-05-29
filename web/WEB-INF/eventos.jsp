@@ -26,8 +26,8 @@
                     <th>R$${evento.minimo}</th>
                     <th>${evento.data}</th>
                     <th>${evento.sorteio}</th>
-                    <th><a href="inscricao.html?id=${id}&id2=${evento.codigo}">Participantes</a></th>
-                    <th><a href="">Inscrição</a></th>
+                    <th><a href="">Participantes</a></th>
+                    <th><a href="inscricao.html?id=${id}&id2=${evento.codigo}">Inscrição</a></th>
                     <th><a href="">Administrar</a></th>
                     </tr>
                 </c:forEach>

@@ -2,7 +2,7 @@
 usuario
 senha*/
 
-drop table evento_participante,
+/*drop table evento_participante,
 drop table evento,
 drop table participante
 
@@ -32,4 +32,4 @@ create table evento_participante(
     foreign key (fkid_codigoParticipante) references participante (codigoParticipante),
     foreign key (fkid_codigoAmigoOculto) references participante (codigoParticipante),
     foreign key (fkid_codigoEvento) references evento (codigoEvento)
-)
+)*/

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "EventosServlet", urlPatterns = {"/eventos.html", "/novoevento.html"})
+@WebServlet(name = "EventosServlet", urlPatterns = {"/eventos.html", "/novoevento.html", "/inscricao.html"})
 public class EventosServlet extends HttpServlet {
 
     @Override
@@ -22,6 +22,7 @@ public class EventosServlet extends HttpServlet {
        Map<String, String> rotas = new HashMap<>();
        rotas.put("/eventos.html", "amigo.oculto.EventosCommand");
        rotas.put("/novoevento.html", "amigo.oculto.CriarNovoEventoCommand");
+       rotas.put("/inscricao.html", "amigo.oculto.InscreverCommand");
        String clazzName = rotas.get(request.getServletPath());
        try {
             Comando comando = (Comando) Class.forName(clazzName).newInstance();
@@ -36,6 +37,7 @@ public class EventosServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, String> rotas = new HashMap<>();
        rotas.put("/novoevento.html", "amigo.oculto.NovoEventoCommand");
+       rotas.put("/inscricao.html", "amigo.oculto.InscricaoCommand");
        String clazzName = rotas.get(request.getServletPath());
        try {
             Comando comando = (Comando) Class.forName(clazzName).newInstance();
