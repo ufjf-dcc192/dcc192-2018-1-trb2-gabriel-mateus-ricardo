@@ -1,6 +1,5 @@
 package command;
 
-import amigo.oculto.Comando;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

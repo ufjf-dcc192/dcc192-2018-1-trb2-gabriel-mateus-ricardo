@@ -1,5 +1,5 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@include file="jspf/cabecalhoInicial.jspf" %>
+<%@include file="jspf/cabecalho.jspf" %>
     <body>
         <div class="container text-center">
             <form method="post">
@@ -11,4 +11,4 @@
                 </div>
             </form>
         </div>
-<%@include file="jspf/rodapeInicial.jspf" %>
+<%@include file="jspf/rodape.jspf" %>

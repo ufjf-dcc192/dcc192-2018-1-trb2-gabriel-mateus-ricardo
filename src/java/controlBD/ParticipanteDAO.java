@@ -1,6 +1,6 @@
 package controlBD;
 
-import amigo.oculto.Participante;
+import Funcionamento.Participante;
 import java.util.List;
 
 public interface ParticipanteDAO {

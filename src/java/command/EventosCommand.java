@@ -1,5 +1,7 @@
-package amigo.oculto;
+package command;
 
+import Funcionamento.Evento;
+import command.Comando;
 import controlBD.EventoDAO;
 import controlBD.EventoDAOJDBC;
 import controlBD.ParticipanteDAO;

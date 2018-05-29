@@ -1,17 +1,19 @@
-package amigo.oculto;
+package command;
 
+import command.Comando;
+import controlBD.EventoDAO;
+import controlBD.EventoDAOJDBC;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class InscreverCommand implements Comando {
+public class InscricaoCommand implements Comando {
 
     @Override
     public void exec(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/inscricao.jsp");
-        despachante.forward(request, response);
+        EventoDAO e = new EventoDAOJDBC();
+        String senha = request.getParameter("senhaEvento");
     }
-
 }

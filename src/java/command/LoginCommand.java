@@ -1,28 +1,29 @@
-package amigo.oculto;
+package command;
 
+import command.Comando;
 import controlBD.ParticipanteDAO;
 import controlBD.ParticipanteDAOJDBC;
 import java.io.IOException;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class CadastroCommand implements Comando{
+public class LoginCommand implements Comando{
 
     @Override
     public void exec(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
             ParticipanteDAO p = new ParticipanteDAOJDBC();
-            String nomeUsuario = request.getParameter("nomeUsuario");
             String email = request.getParameter("emailUsuario");
             String senha = request.getParameter("senhaUsuario");
-            p.criar(nomeUsuario, email, senha);
-            response.sendRedirect("index.html");         
-        } catch (Exception e) {
-            response.sendRedirect("cadastro.html");
-        }
+            Integer id;
+            try {
+                id = p.listarParticipante(email, senha);
+                response.sendRedirect("eventos.html?id="+id);
+            } catch (Exception ex) {
+                response.sendRedirect("login.html");
+            }
     }
     
 }

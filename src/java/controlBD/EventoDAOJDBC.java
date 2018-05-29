@@ -1,6 +1,6 @@
 package controlBD;
 
-import amigo.oculto.Evento;
+import Funcionamento.Evento;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

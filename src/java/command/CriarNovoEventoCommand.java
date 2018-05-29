@@ -1,5 +1,6 @@
-package amigo.oculto;
+package command;
 
+import command.Comando;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;

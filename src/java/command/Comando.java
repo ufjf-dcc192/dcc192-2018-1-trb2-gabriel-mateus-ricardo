@@ -1,4 +1,4 @@
-package amigo.oculto;
+package command;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
