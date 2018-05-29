@@ -2,13 +2,10 @@ package controlBD;
 
 import amigo.oculto.Evento;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -21,6 +18,7 @@ public class EventoDAOJDBC implements EventoDAO {
     private Connection conexao;
     private PreparedStatement operacaoInsereEvento;
     private PreparedStatement operacaoVarrerEvento;
+    private PreparedStatement operacaoListarEvento; 
 
     public EventoDAOJDBC() {
         try {
@@ -29,6 +27,8 @@ public class EventoDAOJDBC implements EventoDAO {
                 operacaoInsereEvento = conexao.prepareStatement("insert into evento (titulo, minimo, dataInicial, dataSorteio, senhaEntrada) values"
                         + "(?,?,?,?,?)");
                 operacaoVarrerEvento = conexao.prepareStatement("select codigoEvento from evento");
+                operacaoListarEvento = conexao.prepareStatement("select codigoEvento, titulo, minimo, dataInicial, dataSorteio, senhaEntrada from evento");
+             
             } catch (Exception ex) {
                 Logger.getLogger(ParticipanteDAOJDBC.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -65,23 +65,22 @@ public class EventoDAOJDBC implements EventoDAO {
         return i;
     }
 
-    public List<Evento> listAll() {
+    public List<Evento> listarTodos() {
         List<Evento> eventos = new ArrayList<>();
         try {
-            Statement comando = conexao.createStatement();
-            ResultSet resultado = comando.executeQuery(""); // Colocar comando aqui
+            operacaoListarEvento.clearParameters();
+            ResultSet resultado = operacaoListarEvento.executeQuery(); 
             while (resultado.next()) {
                 Evento evento = new Evento();
-                evento.setCodigo(resultado.getInt("codigo"));
+                evento.setCodigo(resultado.getInt("codigoEvento"));
                 evento.setTitulo(resultado.getString("titulo"));
                 evento.setMinimo(resultado.getDouble("minimo"));
-                evento.setData(resultado.getDate("data"));
-                evento.setSorteio(resultado.getDate("sorteio"));
+                evento.setData(resultado.getTimestamp("dataInicial"));
+                evento.setSorteio(resultado.getTimestamp("dataSorteio"));
+                evento.setSenha(resultado.getString("senhaEntrada"));
                 eventos.add(evento);
-
             }
             resultado.close();
-            comando.close();
         } catch (SQLException ex) {
             Logger.getLogger(EventoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

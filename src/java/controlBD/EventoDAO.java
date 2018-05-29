@@ -10,7 +10,7 @@ public interface EventoDAO {
     public void criar (String titulo, Double minimo, Date data, Date sorteio, String senha) throws Exception;
     //public Integer listarEvento () throws Exception;
     public Integer varrerEvento () throws Exception;
-    //public List<Evento> listarTodos() throws Exception;
+    public List<Evento> listarTodos() throws Exception;
     //public void alterar (Evento evento) throws Exception;
     //public void excluir (Evento evento) throws Exception; 
 }
