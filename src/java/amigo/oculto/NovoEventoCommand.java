@@ -28,8 +28,8 @@ public class NovoEventoCommand implements Comando{
             d.criar(titulo, valorMinimo, dataEvento, dataSorteio, senha);
             response.sendRedirect("eventos.html?id="+id);
         } catch (Exception e) {
-        }
         
+        }
             
     }
     

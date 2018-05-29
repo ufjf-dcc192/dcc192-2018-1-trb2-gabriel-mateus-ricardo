@@ -15,6 +15,7 @@
                     <th scope="col">Data do Sorteio</th>
                     <th scope="col">Participantes</th>
                     <th scope="col">Inscrição</th>
+                    <th scope="col">Administrar</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,6 +28,7 @@
                     <th>${evento.sorteio}</th>
                     <th><a href="">Participantes</a></th>
                     <th><a href="">Inscrição</a></th>
+                    <th><a href="">Administrar</a></th>
                     </tr>
                 </c:forEach>
             </tbody>

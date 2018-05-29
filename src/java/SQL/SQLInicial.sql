@@ -2,8 +2,8 @@
 usuario
 senha*/
 
-drop table evento_participante
-drop table evento
+drop table evento_participante,
+drop table evento,
 drop table participante
 
 create table participante(

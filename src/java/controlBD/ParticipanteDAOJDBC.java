@@ -1,5 +1,6 @@
 package controlBD;
 
+import amigo.oculto.Evento;
 import amigo.oculto.Participante;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -30,7 +31,7 @@ public class ParticipanteDAOJDBC implements ParticipanteDAO {
 //                operacaoAlterar = conexao.prepareStatement("update pessoa set PESNOME=? where PESID = ?");
 //                operacaoAlterar2 = conexao.prepareStatement("update pessoa set PESMAIL=? where PESID = ?");
 //                operacaoExcluir = conexao.prepareStatement("delete from pessoa where PESID = ?");
-                operacaoVarrerParticipante = conexao.prepareStatement("select codigoParticipante from participante");
+                operacaoVarrerParticipante = conexao.prepareStatement("select codigoParticipante, nome, email, senha from participante");
             } catch (Exception ex) {
                 Logger.getLogger(ParticipanteDAOJDBC.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -55,14 +56,19 @@ public class ParticipanteDAOJDBC implements ParticipanteDAO {
         operacaoAcharParticipante.setString(2, senha);
         ResultSet resultado = operacaoAcharParticipante.executeQuery();
         resultado.next();
-        Integer id = resultado.getInt(1);
+        Integer id = resultado.getInt("codigoParticipante");
         return id;
     }
 
     @Override
     public List<Participante> listarTodos() throws Exception {
+        operacaoVarrerParticipante.clearParameters();
+        ResultSet resultado = operacaoVarrerParticipante.executeQuery(); 
+        while (resultado.next()) {
+                Participante p = new Participante();
+            }
+            resultado.close();
         return null;
-
     }
 
     @Override
