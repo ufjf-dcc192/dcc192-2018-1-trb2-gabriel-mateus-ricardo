@@ -16,17 +16,17 @@ public class EventosCommand implements Comando {
 
     @Override
     public void exec(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        EventoDAO e = new EventoDAOJDBC();
-        Integer id = Integer.parseInt(request.getParameter("id"));
-        List<Evento> evento;
         try {
+            EventoDAO e = new EventoDAOJDBC();
+            Integer id = Integer.parseInt(request.getParameter("id"));
+            List<Evento> evento;
             evento = e.listarTodos();
             request.setAttribute("evento", evento);
             request.setAttribute("id", id);
             RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/eventos.jsp");
             despachante.forward(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(EventosCommand.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendRedirect("erro.html");
         }
     }
     

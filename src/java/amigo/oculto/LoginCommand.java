@@ -5,7 +5,6 @@ import controlBD.ParticipanteDAOJDBC;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +21,7 @@ public class LoginCommand implements Comando{
                 id = p.listarParticipante(email, senha);
                 response.sendRedirect("eventos.html?id="+id);
             } catch (Exception ex) {
-            Logger.getLogger(LoginCommand.class.getName()).log(Level.SEVERE, null, ex);
+                response.sendRedirect("login.html");
             }
     }
     

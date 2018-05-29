@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "GerenciadorServlet", urlPatterns = {"/index.html", "/cadastrar.html", "/login.html"})
+@WebServlet(name = "GerenciadorServlet", urlPatterns = {"/index.html", "/cadastrar.html", "/login.html", "/erro.html"})
 public class InicialServlet extends HttpServlet {
 
     @Override
@@ -21,6 +21,7 @@ public class InicialServlet extends HttpServlet {
        rotas.put("/index.html", "amigo.oculto.IndexCommand");
        rotas.put("/cadastrar.html", "amigo.oculto.NovoCadastroCommand");
        rotas.put("/login.html", "amigo.oculto.RealizarLoginCommand");
+       rotas.put("/erro.html", "command.ErroCommand");
        String clazzName = rotas.get(request.getServletPath());
        try {
             Comando comando = (Comando) Class.forName(clazzName).newInstance();
