@@ -11,9 +11,9 @@
                     <th scope="col">Código</th>
                     <th scope="col">Título</th>
                     <th scope="col">Valor mínimo</th>
+                    <th scope="col">Data do sorteio</th>
                     <th scope="col">Data do evento</th>
-                    <th scope="col">Data do Sorteio</th>
-                    <th scope="col">Participantes</th>
+                    <th scope="col">Inscritos</th>
                     <th scope="col">Inscrição</th>
                     <th scope="col">Administrar</th>
                 </tr>
@@ -24,9 +24,9 @@
                     <th>${evento.codigo}</th>
                     <th>${evento.titulo}</th>
                     <th>R$${evento.minimo}</th>
-                    <th>${evento.data}</th>
                     <th>${evento.sorteio}</th>
-                    <th><a href="">Participantes</a></th>
+                    <th>${evento.data}</th>
+                    <th><a href="inscritos.html?id=${id}&id2=${evento.codigo}">Inscritos</a></th>
                     <th><a href="inscricao.html?id=${id}&id2=${evento.codigo}">Inscrição</a></th>
                     <th><a href="">Administrar</a></th>
                     </tr>
