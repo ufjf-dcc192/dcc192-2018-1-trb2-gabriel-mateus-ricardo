@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "EventosServlet", urlPatterns = {"/eventos.html", "/novoevento.html", "/inscricao.html"})
+@WebServlet(name = "EventosServlet", urlPatterns = {"/eventos.html", "/novoevento.html", "/inscricao.html", "/inscricaoRealizada.html"})
 public class EventosServlet extends HttpServlet {
 
     @Override
@@ -21,6 +21,7 @@ public class EventosServlet extends HttpServlet {
        rotas.put("/eventos.html", "command.EventosCommand");
        rotas.put("/novoevento.html", "command.CriarNovoEventoCommand");
        rotas.put("/inscricao.html", "command.InscreverCommand");
+       rotas.put("/inscricaoRealizada.html", "command.RetornarParaEventosCommand");
        String clazzName = rotas.get(request.getServletPath());
        try {
             Comando comando = (Comando) Class.forName(clazzName).newInstance();

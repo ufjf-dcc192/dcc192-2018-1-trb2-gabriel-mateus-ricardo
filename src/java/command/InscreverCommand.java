@@ -24,14 +24,13 @@ public class InscreverCommand implements Comando {
                 request.setAttribute("id2", id2);
                 RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/inscricao.jsp");
                 despachante.forward(request, response);
+            } else {
+                request.setAttribute("id", id);
+                RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/inscricaoRealizada.jsp");
+                despachante.forward(request, response);
             }
         } catch (Exception ex) {
             //fazer uma tela mostrando que usuário está inscrito e seu amigo oculto
-            request.setAttribute("id", id);
-            request.setAttribute("id2", id2);
-            RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/mensagem.jsp");
-            despachante.forward(request, response);
         }
     }
-
 }

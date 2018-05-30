@@ -16,7 +16,6 @@ public class InscricaoCommand implements Comando {
 
     @Override
     public void exec(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher despachante;
         try {
             Integer id = Integer.parseInt(request.getParameter("id"));
             Integer id2 = Integer.parseInt(request.getParameter("id2"));
