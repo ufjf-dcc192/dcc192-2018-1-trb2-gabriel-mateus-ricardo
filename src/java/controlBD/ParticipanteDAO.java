@@ -10,4 +10,6 @@ public interface ParticipanteDAO {
     public List<Participante> listarTodos() throws Exception;
     public void alterar (Participante participante) throws Exception;
     public void excluir (Participante participante) throws Exception; 
+
+    public List<Participante> listarParticipanteEvento(List<Integer> ids) throws Exception;
 }

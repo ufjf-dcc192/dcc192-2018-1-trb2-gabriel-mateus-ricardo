@@ -25,8 +25,8 @@ public class EventoDAOJDBC implements EventoDAO {
         try {
             try {
                 conexao = BdConnection.getConnection();
-                operacaoInsereEvento = conexao.prepareStatement("insert into evento (titulo, minimo, dataInicial, dataSorteio, senhaEntrada, fk_codigoCriador) values"
-                        + "(?,?,?,?,?,?)");
+                operacaoInsereEvento = conexao.prepareStatement("insert into evento (titulo, minimo, dataInicial, dataSorteio, senhaEntrada, sorteioRealizado, fk_codigoCriador) values"
+                        + "(?,?,?,?,?,?,?)");
                 operacaoAcharEvento = conexao.prepareStatement("select codigoEvento, titulo, minimo, dataInicial, dataSorteio, senhaEntrada from evento where codigoEvento = ?");
                 operacaoVarrerEvento = conexao.prepareStatement("select codigoEvento from evento");
                 operacaoListarEvento = conexao.prepareStatement("select codigoEvento, titulo, minimo, dataInicial, dataSorteio, senhaEntrada from evento");
@@ -54,7 +54,8 @@ public class EventoDAOJDBC implements EventoDAO {
         operacaoInsereEvento.setTimestamp(3, dataSqlEvento);
         operacaoInsereEvento.setTimestamp(4, dataSqlSorteio);
         operacaoInsereEvento.setString(5, senha);
-        operacaoInsereEvento.setInt(6, id);
+        operacaoInsereEvento.setInt(6, 0);
+        operacaoInsereEvento.setInt(7, id);
         operacaoInsereEvento.executeUpdate();
     }
     

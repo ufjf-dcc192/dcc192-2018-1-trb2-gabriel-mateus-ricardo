@@ -13,6 +13,7 @@ public class Participante_EventoDAOJDBC implements Participante_EventoDAO{
     private Connection conexao;
     private PreparedStatement operacaoCriar;
     private PreparedStatement operacaoBuscar;
+    private PreparedStatement operacaoBuscarParticipante;
     
     public Participante_EventoDAOJDBC() {
         try {
@@ -20,6 +21,7 @@ public class Participante_EventoDAOJDBC implements Participante_EventoDAO{
                 conexao = BdConnection.getConnection();
                 operacaoCriar = conexao.prepareStatement("insert into evento_participante (fkid_codigoParticipante, fkid_codigoEvento) values (?, ?)");
                 operacaoBuscar = conexao.prepareStatement("select fkid_codigoEvento from evento_participante where fkid_codigoParticipante = ?");
+                operacaoBuscarParticipante = conexao.prepareStatement("select fkid_codigoParticipante from evento_participante where fkid_codigoEvento=?");
             } catch (Exception ex) {
                 Logger.getLogger(ParticipanteDAOJDBC.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -58,5 +60,20 @@ public class Participante_EventoDAOJDBC implements Participante_EventoDAO{
             }
         }
         return false;
+    }
+
+    @Override
+    public List<Integer> listarUsuarioEvento(Evento evento) throws Exception {
+        List<Integer> idUsuarios = new ArrayList<>();
+        Integer id = evento.getCodigo();
+        operacaoBuscarParticipante.clearParameters();
+        operacaoBuscarParticipante.setInt(1, id);
+        ResultSet resultado = operacaoBuscarParticipante.executeQuery();
+        while(resultado.next())
+        {
+            Integer id2 = resultado.getInt("fkid_codigoParticipante");
+            idUsuarios.add(id2);
+        }
+        return idUsuarios;
     }
 }

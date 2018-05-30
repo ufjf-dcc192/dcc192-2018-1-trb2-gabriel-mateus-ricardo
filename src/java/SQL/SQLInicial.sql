@@ -2,10 +2,11 @@
 usuario
 senha*/
 
-/*drop table evento_participante,
-drop table evento,
-drop table participante
+/*drop table evento_participante
+drop table evento
+drop table participante*/
 
+/*
 create table participante(
     codigoParticipante integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     nome varchar(500) not null,
@@ -20,6 +21,7 @@ create table evento(
     dataInicial timestamp not null,
     dataSorteio timestamp not null,
     senhaEntrada varchar(500) not null,
+    sorteioRealizado integer not null,
     fk_codigoCriador integer,
     foreign key (fk_codigoCriador) references participante (codigoParticipante)
 )

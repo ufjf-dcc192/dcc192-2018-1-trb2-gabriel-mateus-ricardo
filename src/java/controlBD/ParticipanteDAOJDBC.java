@@ -5,6 +5,7 @@ import Funcionamento.Participante;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,7 +28,8 @@ public class ParticipanteDAOJDBC implements ParticipanteDAO {
                 operacaoInsereParticipante = conexao.prepareStatement("insert into participante (nome, email, senha) values"
                         + "(?,?,?)");
                 operacaoAcharParticipante = conexao.prepareStatement("select codigoParticipante from participante where email = ? and senha = ?");
-                //operacaoListar = conexao.prepareStatement("select pesid, pesnome, pesmail from pessoa");
+                operacaoListar = conexao.prepareStatement("select nome, email from participante where codigoParticipante = ?");
+//operacaoListar = conexao.prepareStatement("select pesid, pesnome, pesmail from pessoa");
 //                operacaoAlterar = conexao.prepareStatement("update pessoa set PESNOME=? where PESID = ?");
 //                operacaoAlterar2 = conexao.prepareStatement("update pessoa set PESMAIL=? where PESID = ?");
 //                operacaoExcluir = conexao.prepareStatement("delete from pessoa where PESID = ?");
@@ -89,6 +91,24 @@ public class ParticipanteDAOJDBC implements ParticipanteDAO {
             i = resultado.getInt(1);
         }
         return i;
+    }
+
+    @Override
+    public List<Participante> listarParticipanteEvento(List<Integer> ids)throws Exception{
+        List<Participante> participantes = new ArrayList<>();
+        for (Integer id : ids) {
+            operacaoListar.clearParameters();
+            operacaoListar.setInt(1, id);
+            ResultSet resultado = operacaoListar.executeQuery();
+            while (resultado.next())
+            {
+                Participante p = new Participante();
+                p.setNome(resultado.getString("nome"));
+                p.setNome(resultado.getString("email"));
+                participantes.add(p);
+            }
+        }
+        return participantes;
     }
 
 }
