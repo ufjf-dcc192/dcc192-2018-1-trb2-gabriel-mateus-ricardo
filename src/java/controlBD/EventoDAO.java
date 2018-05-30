@@ -13,4 +13,5 @@ public interface EventoDAO {
     public List<Evento> listarTodos() throws Exception;
     //public void alterar (Evento evento) throws Exception;
     //public void excluir (Evento evento) throws Exception; 
+    public void sorteioRealizado(Integer numeroEvento) throws Exception;
 }

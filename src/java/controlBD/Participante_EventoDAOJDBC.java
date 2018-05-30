@@ -1,6 +1,7 @@
 package controlBD;
 
 import Funcionamento.Evento;
+import Funcionamento.Participante;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,6 +15,8 @@ public class Participante_EventoDAOJDBC implements Participante_EventoDAO{
     private PreparedStatement operacaoCriar;
     private PreparedStatement operacaoBuscar;
     private PreparedStatement operacaoBuscarParticipante;
+    private PreparedStatement operacaoBuscarParticipanteAmigoOculto;
+    private PreparedStatement operacaoAtualizarAmigoOculto;
     
     public Participante_EventoDAOJDBC() {
         try {
@@ -22,6 +25,8 @@ public class Participante_EventoDAOJDBC implements Participante_EventoDAO{
                 operacaoCriar = conexao.prepareStatement("insert into evento_participante (fkid_codigoParticipante, fkid_codigoEvento) values (?, ?)");
                 operacaoBuscar = conexao.prepareStatement("select fkid_codigoEvento from evento_participante where fkid_codigoParticipante = ?");
                 operacaoBuscarParticipante = conexao.prepareStatement("select fkid_codigoParticipante from evento_participante where fkid_codigoEvento=?");
+                operacaoBuscarParticipanteAmigoOculto = conexao.prepareStatement("select fkid_codigoParticipante, fkid_codigoAmigoOculto from evento_participante where fkid_codigoEvento=?");
+                operacaoAtualizarAmigoOculto = conexao.prepareStatement("update evento_participante set fkid_codigoAmigoOculto = ? where fkid_codigoParticipante = ? and fkid_codigoEvento = ?");
             } catch (Exception ex) {
                 Logger.getLogger(ParticipanteDAOJDBC.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -76,4 +81,36 @@ public class Participante_EventoDAOJDBC implements Participante_EventoDAO{
         }
         return idUsuarios;
     }
+
+    @Override
+    public List<Participante> listarUsuarioEventoAmigoOculto(Evento evento) throws Exception {
+        List<Participante> participantes = new ArrayList<>();
+        Integer id = evento.getCodigo();
+        operacaoBuscarParticipanteAmigoOculto.clearParameters();
+        operacaoBuscarParticipanteAmigoOculto.setInt(1, id);
+        ResultSet resultado = operacaoBuscarParticipanteAmigoOculto.executeQuery();
+        while(resultado.next())
+        {
+            Participante p = new Participante();
+            Integer id2 = resultado.getInt("fkid_codigoParticipante");
+            Integer id3 = resultado.getInt("fkid_codigoAmigoOculto");
+            p.setCodigo(id2);
+            p.setCodigoAmigoOculto(id3);
+            participantes.add(p);
+        }
+        return participantes;
+    }
+
+    @Override
+    public void inserirAmigoOculto(List<Participante> participantes, Integer codigoEvento) throws Exception {
+        for (Participante participante : participantes) {
+            operacaoAtualizarAmigoOculto.clearParameters();
+            operacaoAtualizarAmigoOculto.setInt(1, participante.getCodigoAmigoOculto());
+            operacaoAtualizarAmigoOculto.setInt(2, participante.getCodigo());
+            operacaoAtualizarAmigoOculto.setInt(3, codigoEvento);
+            operacaoAtualizarAmigoOculto.executeUpdate();
+        }
+    }
+    
+    
 }

@@ -103,12 +103,33 @@ public class ParticipanteDAOJDBC implements ParticipanteDAO {
             while (resultado.next())
             {
                 Participante p = new Participante();
+                p.setCodigo(id);
                 p.setNome(resultado.getString("nome"));
                 p.setNome(resultado.getString("email"));
                 participantes.add(p);
             }
         }
         return participantes;
+    }
+
+    @Override
+    public List<Participante> listarParticipanteEventoSorteioRealizado(List<Participante> participantes) throws Exception {
+        List<Participante> p = new ArrayList<>();
+        for (Participante participante : participantes) {
+            operacaoListar.clearParameters();
+            operacaoListar.setInt(1, participante.getCodigo());
+            ResultSet resultado = operacaoListar.executeQuery();
+            while (resultado.next())
+            {
+                Participante pa = new Participante();
+                pa.setCodigo(participante.getCodigo());
+                pa.setNome(resultado.getString("nome"));
+                pa.setNome(resultado.getString("email"));
+                pa.setCodigoAmigoOculto(participante.getCodigoAmigoOculto());
+                p.add(pa);
+            }
+        }
+        return p;
     }
 
 }

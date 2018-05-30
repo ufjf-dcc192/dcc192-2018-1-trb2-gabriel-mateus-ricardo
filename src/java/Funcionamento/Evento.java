@@ -1,5 +1,7 @@
 package Funcionamento;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +14,7 @@ public class Evento {
     private Date sorteio;
     private String senha;
     private List<Participante> participantes;
+    private Integer sorteioRealizado;
 
     public Evento() {
     }
@@ -78,6 +81,31 @@ public class Evento {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+
+    public Integer getSorteioRealizado() {
+        return sorteioRealizado;
+    }
+
+    public void setSorteioRealizado(Integer sorteioRealizado) {
+        this.sorteioRealizado = sorteioRealizado;
+    }
     
-    
+    public void sorteia()
+    {
+        List<Participante> participantesAposSorteio = new ArrayList<>();
+        Collections.shuffle(participantes);
+        for (int i = 0; i < participantes.size(); i++)
+        {
+            if (i == participantes.size()-1)
+            {
+                participantes.get(i).setCodigoAmigoOculto(participantes.get(0).getCodigo());
+            }
+            else
+            {
+                participantes.get(i).setCodigoAmigoOculto(participantes.get(i+1).getCodigo());
+            }
+            participantesAposSorteio.add(participantes.get(i));
+        }
+        this.participantes = participantesAposSorteio;
+    }
 }

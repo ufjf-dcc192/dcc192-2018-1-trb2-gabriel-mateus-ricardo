@@ -20,6 +20,7 @@ public class EventoDAOJDBC implements EventoDAO {
     private PreparedStatement operacaoAcharEvento;
     private PreparedStatement operacaoVarrerEvento;
     private PreparedStatement operacaoListarEvento; 
+    private PreparedStatement operacaoAtualizarSorteio;
 
     public EventoDAOJDBC() {
         try {
@@ -29,8 +30,8 @@ public class EventoDAOJDBC implements EventoDAO {
                         + "(?,?,?,?,?,?,?)");
                 operacaoAcharEvento = conexao.prepareStatement("select codigoEvento, titulo, minimo, dataInicial, dataSorteio, senhaEntrada from evento where codigoEvento = ?");
                 operacaoVarrerEvento = conexao.prepareStatement("select codigoEvento from evento");
-                operacaoListarEvento = conexao.prepareStatement("select codigoEvento, titulo, minimo, dataInicial, dataSorteio, senhaEntrada from evento");
-             
+                operacaoListarEvento = conexao.prepareStatement("select codigoEvento, titulo, minimo, dataInicial, dataSorteio, senhaEntrada, sorteioRealizado from evento");
+                operacaoAtualizarSorteio = conexao.prepareStatement("update evento set sorteioRealizado = 1 where codigoEvento = ?");
             } catch (Exception ex) {
                 Logger.getLogger(ParticipanteDAOJDBC.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -82,6 +83,7 @@ public class EventoDAOJDBC implements EventoDAO {
                 evento.setData(resultado.getTimestamp("dataInicial"));
                 evento.setSorteio(resultado.getTimestamp("dataSorteio"));
                 evento.setSenha(resultado.getString("senhaEntrada"));
+                evento.setSorteioRealizado(resultado.getInt("sorteioRealizado"));
                 eventos.add(evento);
             }
             resultado.close();
@@ -115,5 +117,12 @@ public class EventoDAOJDBC implements EventoDAO {
         evento.setSorteio(resultado.getTimestamp("dataSorteio"));
         evento.setSenha(resultado.getString("senhaEntrada"));
         return evento;
+    }
+
+    @Override
+    public void sorteioRealizado(Integer numeroEvento) throws Exception {
+        operacaoAtualizarSorteio.clearParameters();
+        operacaoAtualizarSorteio.setInt(1, numeroEvento);
+        operacaoAtualizarSorteio.executeUpdate();
     }
 }

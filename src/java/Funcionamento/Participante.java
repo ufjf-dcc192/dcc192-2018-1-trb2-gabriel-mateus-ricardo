@@ -5,6 +5,7 @@ public class Participante {
     private String nome;
     private String email;
     private String senha;
+    private Integer codigoAmigoOculto;
 
     public Participante(String nome, String email, String senha) {
         this.nome = nome;
@@ -48,4 +49,12 @@ public class Participante {
     public void setSenha(String senha) {
         this.senha = senha;
     }    
+
+    public Integer getCodigoAmigoOculto() {
+        return codigoAmigoOculto;
+    }
+
+    public void setCodigoAmigoOculto(Integer codigoAmigoOculto) {
+        this.codigoAmigoOculto = codigoAmigoOculto;
+    }
 }
