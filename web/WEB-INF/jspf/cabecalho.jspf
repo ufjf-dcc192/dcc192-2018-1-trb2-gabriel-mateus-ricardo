@@ -20,6 +20,9 @@
                     <a class="nav-link" href="novoevento.html?id=${id}"> Novo evento </a>
                 </li>
             </ul>
+            <span>
+                <a class="form-control mr-sm-2" href="index.html"> Sair </a>
+            </span>
         </div>
     </nav> 
     <title> Sistema de Amigo Oculto </title>

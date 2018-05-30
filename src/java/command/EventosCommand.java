@@ -1,14 +1,10 @@
 package command;
 
 import Funcionamento.Evento;
-import command.Comando;
 import controlBD.EventoDAO;
 import controlBD.EventoDAOJDBC;
-import controlBD.ParticipanteDAO;
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
