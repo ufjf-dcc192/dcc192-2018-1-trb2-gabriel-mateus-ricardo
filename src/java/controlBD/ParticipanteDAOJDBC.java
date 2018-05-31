@@ -1,6 +1,5 @@
 package controlBD;
 
-import Funcionamento.Evento;
 import Funcionamento.Participante;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,10 +14,8 @@ public class ParticipanteDAOJDBC implements ParticipanteDAO {
     private Connection conexao;
     private PreparedStatement operacaoInsereParticipante;
     private PreparedStatement operacaoAcharParticipante;
+    private PreparedStatement operacaoAcharParticipante2;
     private PreparedStatement operacaoListar;
-    private PreparedStatement operacaoAlterar;
-    private PreparedStatement operacaoAlterar2;
-    private PreparedStatement operacaoExcluir;
     private PreparedStatement operacaoVarrerParticipante;
 
     public ParticipanteDAOJDBC() {
@@ -28,11 +25,8 @@ public class ParticipanteDAOJDBC implements ParticipanteDAO {
                 operacaoInsereParticipante = conexao.prepareStatement("insert into participante (nome, email, senha) values"
                         + "(?,?,?)");
                 operacaoAcharParticipante = conexao.prepareStatement("select codigoParticipante from participante where email = ? and senha = ?");
+                operacaoAcharParticipante2 = conexao.prepareStatement("select nome from participante where codigoParticipante = ?");
                 operacaoListar = conexao.prepareStatement("select nome, email from participante where codigoParticipante = ?");
-//operacaoListar = conexao.prepareStatement("select pesid, pesnome, pesmail from pessoa");
-//                operacaoAlterar = conexao.prepareStatement("update pessoa set PESNOME=? where PESID = ?");
-//                operacaoAlterar2 = conexao.prepareStatement("update pessoa set PESMAIL=? where PESID = ?");
-//                operacaoExcluir = conexao.prepareStatement("delete from pessoa where PESID = ?");
                 operacaoVarrerParticipante = conexao.prepareStatement("select codigoParticipante, nome, email, senha from participante");
             } catch (Exception ex) {
                 Logger.getLogger(ParticipanteDAOJDBC.class.getName()).log(Level.SEVERE, null, ex);
@@ -71,16 +65,6 @@ public class ParticipanteDAOJDBC implements ParticipanteDAO {
             }
             resultado.close();
         return null;
-    }
-
-    @Override
-    public void alterar(Participante participante) throws Exception {
-
-    }
-
-    @Override
-    public void excluir(Participante participante) throws Exception {
-
     }
 
     @Override
@@ -130,6 +114,16 @@ public class ParticipanteDAOJDBC implements ParticipanteDAO {
             }
         }
         return p;
+    }
+
+    @Override
+    public String listarParticipante2(Integer codigo) throws Exception {
+        operacaoAcharParticipante2.clearParameters();
+        operacaoAcharParticipante2.setInt(1, codigo);
+        ResultSet resultado = operacaoAcharParticipante2.executeQuery();
+        resultado.next();
+        String nome = resultado.getString("nome");
+        return nome;
     }
 
 }

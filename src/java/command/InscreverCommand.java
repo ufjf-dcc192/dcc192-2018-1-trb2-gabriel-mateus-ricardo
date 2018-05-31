@@ -26,10 +26,32 @@ public class InscreverCommand implements Comando {
         Participante_EventoDAO p = new Participante_EventoDAOJDBC();
         try {
             if (!p.busca(id, id2)) {
-                request.setAttribute("id", id);
-                request.setAttribute("id2", id2);
-                RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/inscricao.jsp");
-                despachante.forward(request, response);
+                EventoDAO e = new EventoDAOJDBC();
+                Calendar c = Calendar.getInstance();
+                Date data = c.getTime();
+                List<Evento> eventos =  e.listarTodos();
+                for (Evento evento : eventos) {
+                    if (evento.getCodigo()==id2)
+                    {
+                        Integer idData = evento.getSorteio().compareTo(data);
+                        if (idData == 1)
+                        {   
+                            request.setAttribute("inscricao", true);
+                            request.setAttribute("id", id);
+                            request.setAttribute("id2", id2);
+                            RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/inscricao.jsp");
+                            despachante.forward(request, response);
+                        }
+                        else
+                        {
+                            request.setAttribute("inscricao", false);
+                            request.setAttribute("id", id);
+                            request.setAttribute("id2", id2);
+                            RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/inscricao.jsp");
+                            despachante.forward(request, response);
+                        }
+                    }
+                }
             } else {
                 EventoDAO e = new EventoDAOJDBC();        
                 Calendar c = Calendar.getInstance();

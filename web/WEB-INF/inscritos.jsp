@@ -17,13 +17,8 @@
                             <c:forEach var="participantes" items="${participantes}">
                                 <tr>
                                     <th>${participantes.nome}</th>
-                                    <th>
-                                    <form method="post">
-                                        <input type="submit" value="Veja seu amigo oculto"/>
-                                            <input type="hidden" value="${participantes.codigo}" class="form-control" name="idParticipante">
-                                            <input type="hidden" value="${participantes.codigoAmigoOculto}" class="form-control" name="idAmigoOculto">
-                                            <input type="hidden" value="${id2}" class="form-control" name="idEvento">
-                                    </form>
+                                    <th>       
+                                        <a href="amigo.html?id=${participantes.codigo}&id2=${id2}"> Veja seu amigo oculto </a>
                                     </th>
                                 </tr>
                             </c:forEach>
