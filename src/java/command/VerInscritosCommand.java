@@ -81,11 +81,7 @@ public class VerInscritosCommand implements Comando{
                             request.setAttribute("sorteioRealizado", true);
                             RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/inscritos.jsp");
                             despachante.forward(request, response);
-                        }
-                        
-                        
-                        //Se sim, apenas mostrar os participantes que já saíram.
-                        //Se não, realizar o sorteio e mostrar a possibilidade de visualizar o amigo oculto
+                        }                        
                     }
                 }
             }

@@ -19,7 +19,7 @@ public class CadastroCommand implements Comando{
             p.criar(nomeUsuario, email, senha);
             response.sendRedirect("index.html");         
         } catch (Exception e) {
-            response.sendRedirect("cadastro.html");
+            response.sendRedirect("cadastro.html?erro=0");
         }
     }
     

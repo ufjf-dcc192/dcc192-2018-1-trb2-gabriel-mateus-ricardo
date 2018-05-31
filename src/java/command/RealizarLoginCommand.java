@@ -11,8 +11,16 @@ public class RealizarLoginCommand implements Comando{
 
     @Override
     public void exec(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/login.jsp");
-        despachante.forward(request, response);
+        try {
+            Integer erro = Integer.parseInt(request.getParameter("erro"));
+            request.setAttribute("login", false);
+            RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/login.jsp");
+            despachante.forward(request, response);
+        } catch (Exception e) {
+            request.setAttribute("login", true);
+            RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/login.jsp");
+            despachante.forward(request, response);
+        }        
     }
     
 }

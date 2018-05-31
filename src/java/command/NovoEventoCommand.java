@@ -41,7 +41,8 @@ public class NovoEventoCommand implements Comando{
                 response.sendRedirect("eventos.html?id="+idParticipante);
             }
             else
-            {                            
+            {   
+                request.setAttribute("evento", false);
                 request.setAttribute("id", idParticipante);
                 RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/novoevento.jsp");
                 despachante.forward(request, response);
