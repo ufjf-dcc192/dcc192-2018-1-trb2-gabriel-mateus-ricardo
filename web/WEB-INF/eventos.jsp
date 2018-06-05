@@ -1,4 +1,5 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@include file="jspf/cabecalho.jspf" %>
     
     <body>
@@ -13,9 +14,7 @@
                     <th scope="col">Valor mínimo</th>
                     <th scope="col">Data do sorteio</th>
                     <th scope="col">Data do evento</th>
-                    <th scope="col">Inscritos</th>
-                    <th scope="col">Inscrição</th>
-                    <th scope="col">Administrar</th>
+                    <th scope="col">Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,11 +23,9 @@
                     <th>${evento.codigo}</th>
                     <th>${evento.titulo}</th>
                     <th>R$${evento.minimo}</th>
-                    <th>${evento.sorteio}</th>
-                    <th>${evento.data}</th>
-                    <th><a href="inscritos.html?id=${id}&id2=${evento.codigo}">Inscritos</a></th>
-                    <th><a href="inscricao.html?id=${id}&id2=${evento.codigo}">Inscrição</a></th>
-                    <th><a href="">Administrar</a></th>
+                    <th><fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${evento.sorteio}" /></th>
+                    <th><fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${evento.data}" /></th>
+                    <th><a href="inscritos.html?id=${id}&id2=${evento.codigo}">Inscritos</a> // <a href="inscricao.html?id=${id}&id2=${evento.codigo}">Inscrição</a> // <a href="">Administrar</a> </th>
                     </tr>
                 </c:forEach>
             </tbody>
