@@ -7,10 +7,6 @@
                     <h1>Administração</h1>
                     <form method="post">
                         <div class="form-group row">
-                            <label>Novo Título</label>
-                            <input type="text" class="form-control" name="titulo" placeholder="Nome do seu evento" >
-                            <label>Novo Valor mínimo</label>
-                            <input type="text" class="form-control" name="valorMinimo" placeholder="Coloque somente o valor" >
                             <label>Nova Data do sorteio</label>
                             <input type="datetime-local" class="form-control" name="dataDoSorteio" placeholder="" >
                             <label>Nova Data do evento</label>
@@ -26,10 +22,6 @@
                     <font color="FF0000"> E-mail e/ou senha incorreto(s)! </font>
                     <form method="post">
                         <div class="form-group row">
-                            <label>Novo Título</label>
-                            <input type="text" class="form-control" name="titulo" placeholder="Nome do seu evento" >
-                            <label>Novo Valor mínimo</label>
-                            <input type="text" class="form-control" name="valorMinimo" placeholder="Coloque somente o valor" >
                             <label>Nova Data do sorteio</label>
                             <input type="datetime-local" class="form-control" name="dataDoSorteio" placeholder="" >
                             <label>Nova Data do evento</label>

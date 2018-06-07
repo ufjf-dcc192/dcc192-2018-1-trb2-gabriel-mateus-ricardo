@@ -10,23 +10,26 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Participante_EventoDAOJDBC implements Participante_EventoDAO{
+public class Participante_EventoDAOJDBC implements Participante_EventoDAO {
+
     private Connection conexao;
     private PreparedStatement operacaoCriar;
     private PreparedStatement operacaoBuscar;
     private PreparedStatement operacaoBuscarParticipante;
     private PreparedStatement operacaoBuscarParticipanteAmigoOculto;
     private PreparedStatement operacaoAtualizarAmigoOculto;
-    
+    private PreparedStatement operacaoBuscaCriadorEvento;
+
     public Participante_EventoDAOJDBC() {
         try {
             try {
                 conexao = BdConnection.getConnection();
                 operacaoCriar = conexao.prepareStatement("insert into evento_participante (fkid_codigoParticipante, fkid_codigoEvento) values (?, ?)");
                 operacaoBuscar = conexao.prepareStatement("select fkid_codigoEvento from evento_participante where fkid_codigoParticipante = ?");
-                operacaoBuscarParticipante = conexao.prepareStatement("select fkid_codigoParticipante from evento_participante where fkid_codigoEvento=?");
+                operacaoBuscarParticipante = conexao.prepareStatement("select fkid_codigoParticipante from evento_participante where fkid_codigoEvento = ?");
                 operacaoBuscarParticipanteAmigoOculto = conexao.prepareStatement("select fkid_codigoParticipante, fkid_codigoAmigoOculto from evento_participante where fkid_codigoEvento=?");
                 operacaoAtualizarAmigoOculto = conexao.prepareStatement("update evento_participante set fkid_codigoAmigoOculto = ? where fkid_codigoParticipante = ? and fkid_codigoEvento = ?");
+                operacaoBuscaCriadorEvento = conexao.prepareStatement("select fk_codigocriador from evento where codigoevento = ?");
             } catch (Exception ex) {
                 Logger.getLogger(ParticipanteDAOJDBC.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -49,17 +52,15 @@ public class Participante_EventoDAOJDBC implements Participante_EventoDAO{
         operacaoBuscar.clearParameters();
         operacaoBuscar.setInt(1, idParticipante);
         ResultSet resultado = operacaoBuscar.executeQuery();
-        while(resultado.next())
-        {
+        while (resultado.next()) {
             Integer id = resultado.getInt("fkid_codigoEvento");
             idEventos.add(id);
-        }    
+        }
         EventoDAO e = new EventoDAOJDBC();
         List<Evento> eventos = e.listarTodos();
         for (Evento evento : eventos) {
             for (Integer idev : idEventos) {
-                if (idev == idEvento)
-                {
+                if (idev == idEvento) {
                     return true;
                 }
             }
@@ -74,8 +75,7 @@ public class Participante_EventoDAOJDBC implements Participante_EventoDAO{
         operacaoBuscarParticipante.clearParameters();
         operacaoBuscarParticipante.setInt(1, id);
         ResultSet resultado = operacaoBuscarParticipante.executeQuery();
-        while(resultado.next())
-        {
+        while (resultado.next()) {
             Integer id2 = resultado.getInt("fkid_codigoParticipante");
             idUsuarios.add(id2);
         }
@@ -89,8 +89,7 @@ public class Participante_EventoDAOJDBC implements Participante_EventoDAO{
         operacaoBuscarParticipanteAmigoOculto.clearParameters();
         operacaoBuscarParticipanteAmigoOculto.setInt(1, id);
         ResultSet resultado = operacaoBuscarParticipanteAmigoOculto.executeQuery();
-        while(resultado.next())
-        {
+        while (resultado.next()) {
             Participante p = new Participante();
             Integer id2 = resultado.getInt("fkid_codigoParticipante");
             Integer id3 = resultado.getInt("fkid_codigoAmigoOculto");
@@ -111,6 +110,16 @@ public class Participante_EventoDAOJDBC implements Participante_EventoDAO{
             operacaoAtualizarAmigoOculto.executeUpdate();
         }
     }
-    
-    
+
+    @Override
+    public int usuarioCriadorEvento(Evento evento) throws Exception {
+        Integer id = evento.getCodigo();
+        operacaoBuscaCriadorEvento.clearParameters();
+        operacaoBuscaCriadorEvento.setInt(1, id);
+        ResultSet resultado = operacaoBuscaCriadorEvento.executeQuery();
+        Integer criador = resultado.getInt("fk_codigocriador");
+        //System.out.println(criador);
+        return criador;
+    }
+
 }
