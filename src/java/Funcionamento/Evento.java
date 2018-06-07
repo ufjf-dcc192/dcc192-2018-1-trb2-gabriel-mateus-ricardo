@@ -15,6 +15,7 @@ public class Evento {
     private String senha;
     private List<Participante> participantes;
     private Integer sorteioRealizado;
+    private Integer codigoCriador;
 
     public Evento() {
     }
@@ -107,5 +108,13 @@ public class Evento {
             participantesAposSorteio.add(participantes.get(i));
         }
         this.participantes = participantesAposSorteio;
+    }
+
+    public Integer getCodigoCriador() {
+        return codigoCriador;
+    }
+
+    public void setCodigoCriador(Integer codigoCriador) {
+        this.codigoCriador = codigoCriador;
     }
 }

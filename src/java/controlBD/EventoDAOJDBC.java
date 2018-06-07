@@ -30,7 +30,7 @@ public class EventoDAOJDBC implements EventoDAO {
                         + "(?,?,?,?,?,?,?)");
                 operacaoAcharEvento = conexao.prepareStatement("select codigoEvento, titulo, minimo, dataInicial, dataSorteio, senhaEntrada from evento where codigoEvento = ?");
                 operacaoVarrerEvento = conexao.prepareStatement("select codigoEvento from evento");
-                operacaoListarEvento = conexao.prepareStatement("select codigoEvento, titulo, minimo, dataInicial, dataSorteio, senhaEntrada, sorteioRealizado from evento");
+                operacaoListarEvento = conexao.prepareStatement("select codigoEvento, titulo, minimo, dataInicial, dataSorteio, senhaEntrada, sorteioRealizado, fk_codigoCriador from evento");
                 operacaoAtualizarSorteio = conexao.prepareStatement("update evento set sorteioRealizado = 1 where codigoEvento = ?");
             } catch (Exception ex) {
                 Logger.getLogger(ParticipanteDAOJDBC.class.getName()).log(Level.SEVERE, null, ex);
@@ -84,6 +84,7 @@ public class EventoDAOJDBC implements EventoDAO {
                 evento.setSorteio(resultado.getTimestamp("dataSorteio"));
                 evento.setSenha(resultado.getString("senhaEntrada"));
                 evento.setSorteioRealizado(resultado.getInt("sorteioRealizado"));
+                evento.setCodigoCriador(resultado.getInt("fk_codigoCriador"));
                 eventos.add(evento);
             }
             resultado.close();
