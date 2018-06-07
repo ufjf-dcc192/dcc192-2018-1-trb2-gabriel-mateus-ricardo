@@ -3,8 +3,6 @@
 <body>
     <div class="container text-center">
         <h1>Você não é o criador do evento, portanto não pode administrá-lo</h1>
-        <form method="post">
-            <input type="submit" value="Voltar"/>
-        </form>
+            <a type="button" class="btn btn-secondary btn-lg btn-block" href="eventos.html?id=${id}"> Voltar para Eventos </a> 
     </div>
     <%@include file="jspf/rodape.jspf" %>

@@ -46,6 +46,28 @@ public class AdministrarCommand implements Comando {
                     }
                 }
             }
+            else
+            {
+                EventoDAO e = new EventoDAOJDBC();
+                List<Evento> eventos = e.listarTodos();
+                for (Evento evento : eventos) {
+                    if (evento.getCodigo() == id2) {
+                        if (evento.getCodigoCriador() == id) {
+                            request.setAttribute("id", id);
+                            request.setAttribute("id2", id2);
+                            RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/administrar.jsp");
+                            despachante.forward(request, response);
+                        }
+                        else
+                        {
+                            request.setAttribute("id", id);
+                            request.setAttribute("id2", id2);
+                            RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/acessoNegadoAdm.jsp");
+                            despachante.forward(request, response);
+                        }
+                    }
+                }
+            }
         } catch (Exception ex) {
             response.sendRedirect("erro.html");
         }
