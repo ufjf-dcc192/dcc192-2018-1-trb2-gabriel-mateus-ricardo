@@ -110,16 +110,4 @@ public class Participante_EventoDAOJDBC implements Participante_EventoDAO {
             operacaoAtualizarAmigoOculto.executeUpdate();
         }
     }
-
-    @Override
-    public int usuarioCriadorEvento(Evento evento) throws Exception {
-        Integer id = evento.getCodigo();
-        operacaoBuscaCriadorEvento.clearParameters();
-        operacaoBuscaCriadorEvento.setInt(1, id);
-        ResultSet resultado = operacaoBuscaCriadorEvento.executeQuery();
-        Integer criador = resultado.getInt("fk_codigocriador");
-        //System.out.println(criador);
-        return criador;
-    }
-
 }
