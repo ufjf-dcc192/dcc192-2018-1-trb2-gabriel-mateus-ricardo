@@ -31,6 +31,13 @@ public class AdministrarCommand implements Comando {
                 for (Evento evento : eventos) {
                     if (evento.getCodigo() == id2) {
                         if (evento.getCodigoCriador() == id) {
+                            //verificar se a data do evento já foi, se sim, não é possível alterar dado nenhum.
+                            //Necessário um if else. Se evento já ocorreu, emite tela que evento já foi. Se não, ele pode trocar tudo.
+                            //verificar se o sorteio já foi realizado, se sim, não é possível alterar a data do sorteio
+                            //Necessário um if else. Se sorteio já realizado ou data do sorteio já passou, passa o evento como false.
+                            //Para fazer o segundo verificar, é só usar o when do JSP. 
+                            //request.setAttribute("evento", true); // se você colocar false aqui, vai pro segundo caso do when
+                            //request.setAttribute("evento", false);
                             request.setAttribute("id", id);
                             request.setAttribute("id2", id2);
                             RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/administrar.jsp");
@@ -46,7 +53,7 @@ public class AdministrarCommand implements Comando {
                     }
                 }
             }
-            else
+            else 
             {
                 EventoDAO e = new EventoDAOJDBC();
                 List<Evento> eventos = e.listarTodos();

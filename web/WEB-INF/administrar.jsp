@@ -19,11 +19,9 @@
                 </c:when>
                 <c:when test="${!evento}">
                     <h1>Administração</h1>
-                    <font color="FF0000"> E-mail e/ou senha incorreto(s)! </font>
+                    <font color="FF0000"> Algo incorreto! </font>
                     <form method="post">
                         <div class="form-group row">
-                            <label>Nova Data do sorteio</label>
-                            <input type="datetime-local" class="form-control" name="dataDoSorteio" placeholder="" >
                             <label>Nova Data do evento</label>
                             <input type="datetime-local" class="form-control" name="dataDoEvento" placeholder="" >
                             <input type="hidden" class="form-control" name="id" value=${id}/>

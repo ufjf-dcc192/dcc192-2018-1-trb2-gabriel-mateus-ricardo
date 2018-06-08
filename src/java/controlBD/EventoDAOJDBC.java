@@ -35,7 +35,7 @@ public class EventoDAOJDBC implements EventoDAO {
                 operacaoListarEvento = conexao.prepareStatement("select codigoEvento, titulo, minimo, dataInicial, dataSorteio, senhaEntrada, sorteioRealizado, fk_codigoCriador from evento");
                 operacaoAtualizarSorteio = conexao.prepareStatement("update evento set sorteioRealizado = 1 where codigoEvento = ?");
                 operacaoAtualizarDataSorteio = conexao.prepareStatement("update evento set dataSorteio = ? where codigoEvento = ?");
-                operacaoAtualizarDataSorteio = conexao.prepareStatement("update evento set dataInicial = ? where codigoEvento = ?");
+                operacaoAtualizarDataEvento = conexao.prepareStatement("update evento set dataInicial = ? where codigoEvento = ?");
             } catch (Exception ex) {
                 Logger.getLogger(ParticipanteDAOJDBC.class.getName()).log(Level.SEVERE, null, ex);
             }
