@@ -19,8 +19,10 @@ public class EventoDAOJDBC implements EventoDAO {
     private PreparedStatement operacaoInsereEvento;
     private PreparedStatement operacaoAcharEvento;
     private PreparedStatement operacaoVarrerEvento;
-    private PreparedStatement operacaoListarEvento; 
+    private PreparedStatement operacaoListarEvento;
     private PreparedStatement operacaoAtualizarSorteio;
+    private PreparedStatement operacaoAtualizarDataSorteio;
+    private PreparedStatement operacaoAtualizarDataEvento;
 
     public EventoDAOJDBC() {
         try {
@@ -32,6 +34,8 @@ public class EventoDAOJDBC implements EventoDAO {
                 operacaoVarrerEvento = conexao.prepareStatement("select codigoEvento from evento");
                 operacaoListarEvento = conexao.prepareStatement("select codigoEvento, titulo, minimo, dataInicial, dataSorteio, senhaEntrada, sorteioRealizado, fk_codigoCriador from evento");
                 operacaoAtualizarSorteio = conexao.prepareStatement("update evento set sorteioRealizado = 1 where codigoEvento = ?");
+                operacaoAtualizarDataSorteio = conexao.prepareStatement("update evento set dataSorteio = ? where codigoEvento = ?");
+                operacaoAtualizarDataSorteio = conexao.prepareStatement("update evento set dataInicial = ? where codigoEvento = ?");
             } catch (Exception ex) {
                 Logger.getLogger(ParticipanteDAOJDBC.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -59,7 +63,7 @@ public class EventoDAOJDBC implements EventoDAO {
         operacaoInsereEvento.setInt(7, id);
         operacaoInsereEvento.executeUpdate();
     }
-    
+
     @Override
     public Integer varrerEvento() throws Exception {
         Integer i = 0;
@@ -74,7 +78,7 @@ public class EventoDAOJDBC implements EventoDAO {
         List<Evento> eventos = new ArrayList<>();
         try {
             operacaoListarEvento.clearParameters();
-            ResultSet resultado = operacaoListarEvento.executeQuery(); 
+            ResultSet resultado = operacaoListarEvento.executeQuery();
             while (resultado.next()) {
                 Evento evento = new Evento();
                 evento.setCodigo(resultado.getInt("codigoEvento"));
@@ -125,5 +129,34 @@ public class EventoDAOJDBC implements EventoDAO {
         operacaoAtualizarSorteio.clearParameters();
         operacaoAtualizarSorteio.setInt(1, numeroEvento);
         operacaoAtualizarSorteio.executeUpdate();
+    }
+
+    @Override
+    public void alterar(Date data, Date sorteio, Integer id) throws Exception {
+        if (data != null && sorteio != null) {
+            java.sql.Timestamp dataSqlEvento = new java.sql.Timestamp(data.getTime());
+            java.sql.Timestamp dataSqlSorteio = new java.sql.Timestamp(sorteio.getTime());
+            operacaoAtualizarDataSorteio.clearParameters();
+            operacaoAtualizarDataSorteio.setTimestamp(1, dataSqlSorteio);
+            operacaoAtualizarDataSorteio.setInt(2, id);
+            operacaoAtualizarDataSorteio.executeUpdate();
+            operacaoAtualizarDataEvento.clearParameters();
+            operacaoAtualizarDataEvento.setTimestamp(1, dataSqlEvento);
+            operacaoAtualizarDataEvento.setInt(2, id);
+            operacaoAtualizarDataEvento.executeUpdate();
+        } else if (data != null) {
+            java.sql.Timestamp dataSqlEvento = new java.sql.Timestamp(data.getTime());
+            operacaoAtualizarDataEvento.clearParameters();
+            operacaoAtualizarDataEvento.setTimestamp(1, dataSqlEvento);
+            operacaoAtualizarDataEvento.setInt(2, id);
+            operacaoAtualizarDataEvento.executeUpdate();
+        } else if (sorteio != null) {
+            java.sql.Timestamp dataSqlSorteio = new java.sql.Timestamp(sorteio.getTime());
+            operacaoAtualizarDataSorteio.clearParameters();
+            operacaoAtualizarDataSorteio.setTimestamp(1, dataSqlSorteio);
+            operacaoAtualizarDataSorteio.setInt(2, id);
+            operacaoAtualizarDataSorteio.executeUpdate();
+        }
+
     }
 }

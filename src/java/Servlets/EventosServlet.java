@@ -40,6 +40,7 @@ public class EventosServlet extends HttpServlet {
        rotas.put("/novoevento.html", "command.NovoEventoCommand");
        rotas.put("/inscricao.html", "command.InscricaoCommand");
        rotas.put("/amigo.html","command.AmigoOcultoCommand");
+       rotas.put("/administrar.html", "command.PostAdministrarCommand");
        String clazzName = rotas.get(request.getServletPath());
        try {
             Comando comando = (Comando) Class.forName(clazzName).newInstance();
