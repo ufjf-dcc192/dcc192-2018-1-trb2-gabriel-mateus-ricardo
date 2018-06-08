@@ -1,23 +1,18 @@
 package command;
 
 import Funcionamento.Evento;
-import Funcionamento.Participante;
 import controlBD.EventoDAO;
 import controlBD.EventoDAOJDBC;
-import controlBD.ParticipanteDAO;
-import controlBD.ParticipanteDAOJDBC;
 import controlBD.Participante_EventoDAO;
 import controlBD.Participante_EventoDAOJDBC;
 import java.io.IOException;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class AdministrarCommand implements Comando {
+public class GetAdministrarCommand implements Comando {
 
     @Override
     public void exec(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

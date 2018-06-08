@@ -28,7 +28,9 @@
                     </th>
                     <th><fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${evento.sorteio}" /></th>
                     <th><fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${evento.data}" /></th>
-                    <th><a href="inscritos.html?id=${id}&id2=${evento.codigo}">Inscritos</a> // <a href="inscricao.html?id=${id}&id2=${evento.codigo}">Inscrição</a> // <a href="administrar.html?id=${id}&id2=${evento.codigo}">Administrar</a> </th>
+                    <th> <a href="inscritos.html?id=${id}&id2=${evento.codigo}"> <i class="material-icons">people</i> </a> 
+                        <a href="inscricao.html?id=${id}&id2=${evento.codigo}"> <i class="material-icons">person_add</i> </a>  
+                        <a href="administrar.html?id=${id}&id2=${evento.codigo}"> <i class="material-icons">mode_edit</i> </a> </th>
                     </tr>
                 </c:forEach>
             </tbody>

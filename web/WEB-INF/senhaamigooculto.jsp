@@ -7,7 +7,7 @@
                     <form method="post">
                         <div class="form-group row">
                             <label>Email</label>
-                            <input type="text" class="form-control" name="emailUsuario" placeholder="Seu email" required>
+                            <input type="email" class="form-control" name="emailUsuario" placeholder="Seu email" required>
                             <label>Senha</label>
                             <input type="hidden" value="${participantes.codigo}" class="form-control" name="idParticipante"/>
                             <input type="hidden" value="${id2}" class="form-control" name="idEvento"/>

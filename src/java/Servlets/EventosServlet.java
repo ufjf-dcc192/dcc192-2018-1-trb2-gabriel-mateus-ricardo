@@ -18,12 +18,12 @@ public class EventosServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
        Map<String, String> rotas = new HashMap<>();
-       rotas.put("/eventos.html", "command.EventosCommand");
-       rotas.put("/novoevento.html", "command.CriarNovoEventoCommand");
-       rotas.put("/inscricao.html", "command.InscreverCommand");
-       rotas.put("/inscritos.html", "command.VerInscritosCommand");
-       rotas.put("/amigo.html", "command.AmigoOcultoLoginCommand");
-       rotas.put("/administrar.html", "command.AdministrarCommand");
+       rotas.put("/eventos.html", "command.GetEventosCommand");
+       rotas.put("/novoevento.html", "command.GetCriarNovoEventoCommand");
+       rotas.put("/inscricao.html", "command.GetInscreverCommand");
+       rotas.put("/inscritos.html", "command.GetVerInscritosCommand");
+       rotas.put("/amigo.html", "command.GetAmigoOcultoLoginCommand");
+       rotas.put("/administrar.html", "command.GetAdministrarCommand");
        String clazzName = rotas.get(request.getServletPath());
        try {
             Comando comando = (Comando) Class.forName(clazzName).newInstance();
@@ -37,9 +37,9 @@ public class EventosServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
        Map<String, String> rotas = new HashMap<>();
-       rotas.put("/novoevento.html", "command.NovoEventoCommand");
-       rotas.put("/inscricao.html", "command.InscricaoCommand");
-       rotas.put("/amigo.html","command.AmigoOcultoCommand");
+       rotas.put("/novoevento.html", "command.PostNovoEventoCommand");
+       rotas.put("/inscricao.html", "command.PostInscricaoCommand");
+       rotas.put("/amigo.html","command.PostAmigoOcultoCommand");
        rotas.put("/administrar.html", "command.PostAdministrarCommand");
        String clazzName = rotas.get(request.getServletPath());
        try {

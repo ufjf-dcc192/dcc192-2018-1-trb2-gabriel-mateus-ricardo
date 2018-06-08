@@ -18,10 +18,10 @@ public class InicialServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
        Map<String, String> rotas = new HashMap<>();
-       rotas.put("/index.html", "command.IndexCommand");
-       rotas.put("/cadastrar.html", "command.NovoCadastroCommand");
-       rotas.put("/login.html", "command.RealizarLoginCommand");
-       rotas.put("/erro.html", "command.ErroCommand");
+       rotas.put("/index.html", "command.GetIndexCommand");
+       rotas.put("/cadastrar.html", "command.GetNovoCadastroCommand");
+       rotas.put("/login.html", "command.GetRealizarLoginCommand");
+       rotas.put("/erro.html", "command.GetErroCommand");
        String clazzName = rotas.get(request.getServletPath());
        try {
             Comando comando = (Comando) Class.forName(clazzName).newInstance();
@@ -35,8 +35,8 @@ public class InicialServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
        Map<String, String> rotas = new HashMap<>();
-       rotas.put("/cadastrar.html", "command.CadastroCommand");
-       rotas.put("/login.html", "command.LoginCommand");
+       rotas.put("/cadastrar.html", "command.PostCadastroCommand");
+       rotas.put("/login.html", "command.PostLoginCommand");
        String clazzName = rotas.get(request.getServletPath());
        try {
             Comando comando = (Comando) Class.forName(clazzName).newInstance();

@@ -9,7 +9,7 @@
                             <label>Título</label>
                             <input type="text" class="form-control" name="titulo" placeholder="Nome do seu evento" required>
                             <label>Valor mínimo</label>
-                            <input type="text" class="form-control" name="valorMinimo" placeholder="Coloque somente o valor" required>
+                            <input type="number" class="form-control" name="valorMinimo" placeholder="Coloque somente o valor" required>
                             <label>Data do sorteio</label>
                             <input type="datetime-local" class="form-control" name="dataDoSorteio" placeholder="" required>
                             <label>Data do evento</label>

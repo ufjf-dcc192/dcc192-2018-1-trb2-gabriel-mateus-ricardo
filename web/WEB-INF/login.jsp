@@ -7,7 +7,7 @@
                     <form method="post">
                         <div class="form-group row">
                             <label>Email</label>
-                            <input type="text" class="form-control" name="emailUsuario" placeholder="Seu email" required>
+                            <input type="email" class="form-control" name="emailUsuario" placeholder="Seu email" required>
                             <label>Senha</label>
                             <input type="password" class="form-control" name="senhaUsuario" size="20" placeholder="Sua senha" required>
                             <input type="submit" class="btn btn-success"/>
