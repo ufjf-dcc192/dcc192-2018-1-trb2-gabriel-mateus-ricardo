@@ -36,6 +36,7 @@ public class PostInscricaoCommand implements Comando {
                 response.sendRedirect("inscricao.html?id=" + id + "&" + "id2=" + id2);
             }
         } catch (Exception e) {
+            response.sendRedirect("erro.html");
         }
 
     }

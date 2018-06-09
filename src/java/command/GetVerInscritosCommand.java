@@ -86,7 +86,7 @@ public class GetVerInscritosCommand implements Comando{
                 }
             }
         } catch (Exception ex) {
-            
+            response.sendRedirect("erro.html");
         }
         
     }
