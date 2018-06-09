@@ -23,6 +23,7 @@ public class EventoDAOJDBC implements EventoDAO {
     private PreparedStatement operacaoAtualizarSorteio;
     private PreparedStatement operacaoAtualizarDataSorteio;
     private PreparedStatement operacaoAtualizarDataEvento;
+    private PreparedStatement operacaoAtualizarDataEventoSorteio;
 
     public EventoDAOJDBC() {
         try {
@@ -34,8 +35,9 @@ public class EventoDAOJDBC implements EventoDAO {
                 operacaoVarrerEvento = conexao.prepareStatement("select codigoEvento from evento");
                 operacaoListarEvento = conexao.prepareStatement("select codigoEvento, titulo, minimo, dataInicial, dataSorteio, senhaEntrada, sorteioRealizado, fk_codigoCriador from evento");
                 operacaoAtualizarSorteio = conexao.prepareStatement("update evento set sorteioRealizado = 1 where codigoEvento = ?");
-                operacaoAtualizarDataSorteio = conexao.prepareStatement("update evento set dataSorteio = ? where codigoEvento = ?");
-                operacaoAtualizarDataEvento = conexao.prepareStatement("update evento set dataInicial = ? where codigoEvento = ?");
+                operacaoAtualizarDataSorteio = conexao.prepareStatement("update evento set titulo = ?, minimo = ?, dataSorteio = ? where codigoEvento = ?");
+                operacaoAtualizarDataEvento = conexao.prepareStatement("update evento set titulo = ?, minimo = ?, dataInicial = ? where codigoEvento = ?");
+                operacaoAtualizarDataEventoSorteio = conexao.prepareStatement("update evento set titulo = ?, minimo = ?, dataSorteio = ?, dataInicial = ? where codigoEvento = ?");
             } catch (Exception ex) {
                 Logger.getLogger(ParticipanteDAOJDBC.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -132,29 +134,33 @@ public class EventoDAOJDBC implements EventoDAO {
     }
 
     @Override
-    public void alterar(Date data, Date sorteio, Integer id) throws Exception {
+    public void alterar(String titulo, Double valor, Date data, Date sorteio, Integer id) throws Exception {
         if (data != null && sorteio != null) {
             java.sql.Timestamp dataSqlEvento = new java.sql.Timestamp(data.getTime());
             java.sql.Timestamp dataSqlSorteio = new java.sql.Timestamp(sorteio.getTime());
-            operacaoAtualizarDataSorteio.clearParameters();
-            operacaoAtualizarDataSorteio.setTimestamp(1, dataSqlSorteio);
-            operacaoAtualizarDataSorteio.setInt(2, id);
-            operacaoAtualizarDataSorteio.executeUpdate();
+            operacaoAtualizarDataEventoSorteio.clearParameters();
+            operacaoAtualizarDataEventoSorteio.setString(1, titulo);
+            operacaoAtualizarDataEventoSorteio.setDouble(2, valor);
+            operacaoAtualizarDataEventoSorteio.setTimestamp(3, dataSqlSorteio);
+            operacaoAtualizarDataEventoSorteio.setTimestamp(4, dataSqlEvento);
+            operacaoAtualizarDataEventoSorteio.setInt(5, id);
+            operacaoAtualizarDataEventoSorteio.executeUpdate();
             operacaoAtualizarDataEvento.clearParameters();
-            operacaoAtualizarDataEvento.setTimestamp(1, dataSqlEvento);
-            operacaoAtualizarDataEvento.setInt(2, id);
-            operacaoAtualizarDataEvento.executeUpdate();
         } else if (data != null) {
             java.sql.Timestamp dataSqlEvento = new java.sql.Timestamp(data.getTime());
             operacaoAtualizarDataEvento.clearParameters();
-            operacaoAtualizarDataEvento.setTimestamp(1, dataSqlEvento);
-            operacaoAtualizarDataEvento.setInt(2, id);
+            operacaoAtualizarDataEvento.setString(1, titulo);
+            operacaoAtualizarDataEvento.setDouble(2, valor);
+            operacaoAtualizarDataEvento.setTimestamp(3, dataSqlEvento);
+            operacaoAtualizarDataEvento.setInt(4, id);
             operacaoAtualizarDataEvento.executeUpdate();
         } else if (sorteio != null) {
             java.sql.Timestamp dataSqlSorteio = new java.sql.Timestamp(sorteio.getTime());
             operacaoAtualizarDataSorteio.clearParameters();
-            operacaoAtualizarDataSorteio.setTimestamp(1, dataSqlSorteio);
-            operacaoAtualizarDataSorteio.setInt(2, id);
+            operacaoAtualizarDataSorteio.setString(1, titulo);
+            operacaoAtualizarDataSorteio.setDouble(2, valor);
+            operacaoAtualizarDataSorteio.setTimestamp(3, dataSqlSorteio);
+            operacaoAtualizarDataSorteio.setInt(4, id);
             operacaoAtualizarDataSorteio.executeUpdate();
         }
 

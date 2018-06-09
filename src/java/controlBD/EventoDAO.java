@@ -11,8 +11,7 @@ public interface EventoDAO {
     public Evento listarEvento (Integer id) throws Exception;
     public Integer varrerEvento () throws Exception;
     public List<Evento> listarTodos() throws Exception;
-    public void alterar(Date data, Date sorteio, Integer id) throws Exception;
-    //public void alterar (Evento evento) throws Exception;
+    public void alterar(String titulo, Double valor, Date data, Date sorteio, Integer id) throws Exception;
     //public void excluir (Evento evento) throws Exception; 
     public void sorteioRealizado(Integer numeroEvento) throws Exception;
 }
