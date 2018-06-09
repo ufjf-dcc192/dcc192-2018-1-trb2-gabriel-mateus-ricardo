@@ -18,7 +18,7 @@ public class Participante_EventoDAOJDBC implements Participante_EventoDAO {
     private PreparedStatement operacaoBuscarParticipante;
     private PreparedStatement operacaoBuscarParticipanteAmigoOculto;
     private PreparedStatement operacaoAtualizarAmigoOculto;
-    private PreparedStatement operacaoBuscaCriadorEvento;
+    private PreparedStatement operacaoExcluir;
 
     public Participante_EventoDAOJDBC() {
         try {
@@ -29,7 +29,7 @@ public class Participante_EventoDAOJDBC implements Participante_EventoDAO {
                 operacaoBuscarParticipante = conexao.prepareStatement("select fkid_codigoParticipante from evento_participante where fkid_codigoEvento = ?");
                 operacaoBuscarParticipanteAmigoOculto = conexao.prepareStatement("select fkid_codigoParticipante, fkid_codigoAmigoOculto from evento_participante where fkid_codigoEvento=?");
                 operacaoAtualizarAmigoOculto = conexao.prepareStatement("update evento_participante set fkid_codigoAmigoOculto = ? where fkid_codigoParticipante = ? and fkid_codigoEvento = ?");
-                operacaoBuscaCriadorEvento = conexao.prepareStatement("select fk_codigocriador from evento where codigoevento = ?");
+                operacaoExcluir = conexao.prepareStatement("delete from evento_participante where fkid_codigoEvento = ?");
             } catch (Exception ex) {
                 Logger.getLogger(ParticipanteDAOJDBC.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -109,5 +109,12 @@ public class Participante_EventoDAOJDBC implements Participante_EventoDAO {
             operacaoAtualizarAmigoOculto.setInt(3, codigoEvento);
             operacaoAtualizarAmigoOculto.executeUpdate();
         }
+    }
+
+    @Override
+    public void excluir(Integer idEvento) throws Exception {
+        operacaoExcluir.clearParameters();
+        operacaoExcluir.setInt(1, idEvento);
+        operacaoExcluir.execute();
     }
 }

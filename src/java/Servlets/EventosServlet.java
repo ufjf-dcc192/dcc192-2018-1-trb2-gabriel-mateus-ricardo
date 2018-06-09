@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "EventosServlet", urlPatterns = {"/eventos.html", "/novoevento.html", "/inscricao.html", "/inscritos.html", "/amigo.html", "/administrar.html"})
+@WebServlet(name = "EventosServlet", urlPatterns = {"/eventos.html", "/novoevento.html", "/inscricao.html", "/inscritos.html", "/amigo.html", "/administrar.html", "/excluirevento.html"})
 public class EventosServlet extends HttpServlet {
 
     @Override
@@ -24,6 +24,7 @@ public class EventosServlet extends HttpServlet {
        rotas.put("/inscritos.html", "command.GetVerInscritosCommand");
        rotas.put("/amigo.html", "command.GetAmigoOcultoLoginCommand");
        rotas.put("/administrar.html", "command.GetAdministrarCommand");
+       rotas.put("/excluirevento.html", "command.GetExcluirEventoCommand");
        String clazzName = rotas.get(request.getServletPath());
        try {
             Comando comando = (Comando) Class.forName(clazzName).newInstance();
@@ -41,6 +42,7 @@ public class EventosServlet extends HttpServlet {
        rotas.put("/inscricao.html", "command.PostInscricaoCommand");
        rotas.put("/amigo.html","command.PostAmigoOcultoCommand");
        rotas.put("/administrar.html", "command.PostAdministrarCommand");
+       rotas.put("/excluirevento.html", "command.PostExcluirEventoCommand");
        String clazzName = rotas.get(request.getServletPath());
        try {
             Comando comando = (Comando) Class.forName(clazzName).newInstance();

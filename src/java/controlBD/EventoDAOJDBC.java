@@ -24,7 +24,8 @@ public class EventoDAOJDBC implements EventoDAO {
     private PreparedStatement operacaoAtualizarDataSorteio;
     private PreparedStatement operacaoAtualizarDataEvento;
     private PreparedStatement operacaoAtualizarDataEventoSorteio;
-
+    private PreparedStatement operacaoExcluirEvento;
+    
     public EventoDAOJDBC() {
         try {
             try {
@@ -38,6 +39,7 @@ public class EventoDAOJDBC implements EventoDAO {
                 operacaoAtualizarDataSorteio = conexao.prepareStatement("update evento set titulo = ?, minimo = ?, dataSorteio = ? where codigoEvento = ?");
                 operacaoAtualizarDataEvento = conexao.prepareStatement("update evento set titulo = ?, minimo = ?, dataInicial = ? where codigoEvento = ?");
                 operacaoAtualizarDataEventoSorteio = conexao.prepareStatement("update evento set titulo = ?, minimo = ?, dataSorteio = ?, dataInicial = ? where codigoEvento = ?");
+                operacaoExcluirEvento = conexao.prepareStatement("delete from evento where codigoEvento = ?");
             } catch (Exception ex) {
                 Logger.getLogger(ParticipanteDAOJDBC.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -164,5 +166,12 @@ public class EventoDAOJDBC implements EventoDAO {
             operacaoAtualizarDataSorteio.executeUpdate();
         }
 
+    }
+
+    @Override
+    public void excluir(Integer evento) throws Exception {
+        operacaoExcluirEvento.clearParameters();
+        operacaoExcluirEvento.setInt(1, evento);
+        operacaoExcluirEvento.execute();
     }
 }

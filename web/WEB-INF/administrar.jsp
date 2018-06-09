@@ -42,5 +42,6 @@
                     </form>
                 </c:when>
             </c:choose>
+                    Deseja excluir o evento? Clique <a href="excluirevento.html?id=${id}&id2=${id2}">aqui</a>        
         </div>
 <%@include file="jspf/rodape.jspf" %>
