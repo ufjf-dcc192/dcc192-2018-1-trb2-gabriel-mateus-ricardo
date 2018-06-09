@@ -4,7 +4,7 @@
     
     <body>
         <div class="container text-center">
-        <h1>Eventos de Amigo Oculto</h1>
+        <h1> Eventos de Amigo Oculto </h1>
         </div>
         <table class="table table-dark">
             <thead>

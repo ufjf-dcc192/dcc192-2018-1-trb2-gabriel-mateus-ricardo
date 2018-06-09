@@ -8,10 +8,10 @@
                     <h1> Participantes </h1>
                     <table class="table table-dark">
                     <thead>
-                                <tr>
-                                    <th scope="col">Nome</th>
-                                    <th scope="col">Status</th>
-                                </tr>
+                            <tr>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Status</th>
+                            </tr>
                     </thead>
                         <tbody>
                             <c:forEach var="participantes" items="${participantes}">

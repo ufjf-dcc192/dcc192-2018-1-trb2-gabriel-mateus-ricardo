@@ -24,7 +24,7 @@ public class PostAdministrarCommand implements Comando {
             Date dataSorteio = (Date) formatter.parse(request.getParameter("dataDoSorteio"));
             Date dataEvento = (Date) formatter.parse(request.getParameter("dataDoEvento"));
             EventoDAO e = new EventoDAOJDBC();
-            e.alterar(dataEvento, dataSorteio, id2);
+            //e.alterar(dataEvento, dataSorteio, id2);
             response.sendRedirect("eventos.html?id=" + id);
 
         } catch (ParseException ex) {

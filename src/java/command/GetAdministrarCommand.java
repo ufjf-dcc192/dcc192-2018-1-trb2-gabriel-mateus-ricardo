@@ -24,15 +24,18 @@ public class GetAdministrarCommand implements Comando {
                 EventoDAO e = new EventoDAOJDBC();
                 List<Evento> eventos = e.listarTodos();
                 for (Evento evento : eventos) {
-                    if (evento.getCodigo() == id2) {
-                        if (evento.getCodigoCriador() == id) {
+                    if (evento.getCodigo() == id2)
+                    {
+                        if (evento.getCodigoCriador() == id)
+                        {
                             //verificar se a data do evento já foi, se sim, não é possível alterar dado nenhum.
                             //Necessário um if else. Se evento já ocorreu, emite tela que evento já foi. Se não, ele pode trocar tudo.
                             //verificar se o sorteio já foi realizado, se sim, não é possível alterar a data do sorteio
                             //Necessário um if else. Se sorteio já realizado ou data do sorteio já passou, passa o evento como false.
                             //Para fazer o segundo verificar, é só usar o when do JSP. 
-                            //request.setAttribute("evento", true); // se você colocar false aqui, vai pro segundo caso do when
                             //request.setAttribute("evento", false);
+                            request.setAttribute("evento", true);
+                            request.setAttribute("eventoModificar", evento);
                             request.setAttribute("id", id);
                             request.setAttribute("id2", id2);
                             RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/administrar.jsp");
@@ -48,7 +51,14 @@ public class GetAdministrarCommand implements Comando {
                     }
                 }
             }
-            else 
+            else
+            {
+                request.setAttribute("id", id);
+                request.setAttribute("id2", id2);
+                RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/acessoNegadoAdm.jsp");
+                despachante.forward(request, response);
+            }
+            /* 
             {
                 EventoDAO e = new EventoDAOJDBC();
                 List<Evento> eventos = e.listarTodos();
@@ -69,7 +79,7 @@ public class GetAdministrarCommand implements Comando {
                         }
                     }
                 }
-            }
+            }*/
         } catch (Exception ex) {
             response.sendRedirect("erro.html");
         }

@@ -15,6 +15,7 @@
                 </c:when>
                 <c:when test="${!inscricao}">
                     <h1> As inscrições já estão encerradas </h1>
+                    <a type="button" class="btn btn-secondary btn-md" href="inscritos.html?id=${id}&id2=${id2}"> Ver inscritos no evento </a>
                 </c:when>
             </c:choose>
         </div>
