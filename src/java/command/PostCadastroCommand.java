@@ -16,8 +16,15 @@ public class PostCadastroCommand implements Comando{
             String nomeUsuario = request.getParameter("nomeUsuario");
             String email = request.getParameter("emailUsuario");
             String senha = request.getParameter("senhaUsuario");
-            p.criar(nomeUsuario, email, senha);
-            response.sendRedirect("index.html");         
+            try {
+                p.listarParticipante(email, senha);
+                response.sendRedirect("erro.html");
+            }
+            catch(Exception ex)
+            {
+                p.criar(nomeUsuario, email, senha);
+                response.sendRedirect("index.html");
+            }         
         } catch (Exception e) {
             response.sendRedirect("cadastro.html?erro=0");
         }
